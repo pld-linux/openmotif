@@ -1,12 +1,12 @@
 Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
-Version:	2.2.2
-Release:	0.8
+Version:	2.2.3
+Release:	0.1
 License:	Open Group Public License
 Group:		X11/Libraries
-Source0:	ftp://openmotif.opengroup.org/pub/openmotif/R2.2/tars/%{name}-%{version}.tgz
-# Source0-md5: c5953e0fa08f79644e7bef9da218bb4b
+Source0:	ftp://ftp.ics.com/pub/Products/Motif/om%{version}/%{name}%{version}.tar.gz
+# Source0-md5:	6954a64b0de1f9c6c68e9e0e3800593d
 #Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
@@ -121,14 +121,14 @@ Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiej±cy sk³adniê
 mwmrc oraz zasoby Mwm.
 
 %prep
-%setup -q
+%setup -q -c
 #-b 1
 #rm -f config/cf/host.def
 %patch0 -p1
-%patch5 -p1
-%patch6 -p1
+#%patch5 -p1
+#%patch6 -p1
 %patch7 -p1
-%patch8 -p1
+#%patch8 -p1
 #%patch1 -p1
 #%patch2 -p1
 #%patch3 -p1
@@ -155,9 +155,12 @@ mwmrc oraz zasoby Mwm.
 %{__libtoolize}
 #%%{__gettextize}
 %{__aclocal}
+%{__autoheader}
 %{__automake}
 %{__autoconf}
-%configure
+%configure \
+	--enable-shared \
+	--enable-static
 %{__make} clean
 %{__make}
 
