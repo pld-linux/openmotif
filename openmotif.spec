@@ -123,7 +123,7 @@ Summary:	Motif window manager
 Summary(pl):	Motifowy zarz±dca okien
 Group:		X11/Window Managers
 Requires:	%{name} = %{version}-%{release}
-Requires:	xinitrc >= 3.0
+Requires:	xinitrc-ng
 Obsoletes:	lesstif-mwm
 
 %description mwm
