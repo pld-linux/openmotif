@@ -1,0 +1,45 @@
+diff -ur motif/config/makedepend/def.h morif.new/config/makedepend/def.h
+--- motif/config/makedepend/def.h	Wed May  3 10:30:32 2000
++++ morif.new/config/makedepend/def.h	Tue Jun  6 18:58:44 2000
+@@ -147,7 +147,7 @@
+ 
+ char			*copy();
+ char			*base_name();
+-char			*getline();
++char			*MKDgetline();
+ struct symtab		**slookup();
+ struct symtab		**isdefined();
+ struct symtab		**fdefined();
+diff -ur motif/config/makedepend/main.c morif.new/config/makedepend/main.c
+--- motif/config/makedepend/main.c	Wed May  3 10:31:35 2000
++++ morif.new/config/makedepend/main.c	Tue Jun  6 18:58:58 2000
+@@ -496,7 +496,7 @@
+  * Get the next line.  We only return lines beginning with '#' since that
+  * is all this program is ever interested in.
+  */
+-char *getline(filep)
++char *MKDgetline(filep)
+ 	register struct filepointer	*filep;
+ {
+ 	register char	*p,	/* walking pointer */
+diff -ur motif/config/makedepend/parse.c morif.new/config/makedepend/parse.c
+--- motif/config/makedepend/parse.c	Wed May  3 10:36:43 2000
++++ morif.new/config/makedepend/parse.c	Tue Jun  6 18:58:53 2000
+@@ -53,7 +53,7 @@
+ 	register char	*line;
+ 	register int	type;
+ 
+-	while (line = getline(filep)) {
++	while (line = MKDgetline(filep)) {
+ 		switch(type = deftype(line, filep, file_red, file, FALSE)) {
+ 		case IF:
+ 		case IFFALSE:
+@@ -541,7 +541,7 @@
+ 	register int	type;
+ 	boolean recfailOK;
+ 
+-	while (line = getline(filep)) {
++	while (line = MKDgetline(filep)) {
+ 		switch(type = deftype(line, filep, file_red, file, TRUE)) {
+ 		case IF:
+ 		doif:
