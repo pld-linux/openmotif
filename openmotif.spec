@@ -11,6 +11,7 @@ Source0:	ftp://openmotif.opengroup.org/pub/openmotif/R2.2/tars/%{name}-%{version
 Source2:	mwmrc
 Source3:	mwm.RunWM
 Source4:	mwm.wm_style
+Source5:	mwm-xsession.desktop
 Patch0:		%{name}-makedepend.patch
 #Patch1:		%{name}-build.patch
 #Patch2:		%{name}-mwm.patch
@@ -168,7 +169,10 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,/etc/{sysconfig/wmstyle,X11/mwm}}
+install -d \
+    $RPM_BUILD_ROOT%{_examplesdir}/motif \
+    $RPM_BUILD_ROOT/etc/{sysconfig/wmstyle,X11/mwm} \
+    $RPM_BUILD_ROOT%{_datadir}/xsessions
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 #	INSTBINFLAGS="-m 755" \
@@ -195,6 +199,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.names
+install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -296,5 +301,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /etc/sysconfig/wmstyle/*.sh
 /etc/sysconfig/wmstyle/*.names
 #%%{_libdir}/X11/app-defaults/Mwm
+%{_datadir}/xsessions/mwm.desktop
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*
