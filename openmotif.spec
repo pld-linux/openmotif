@@ -14,6 +14,7 @@ Patch0:		%{name}-makedepend.patch
 Patch1:		%{name}-build.patch
 Patch2:		%{name}-mwm.patch
 Patch3:		%{name}-mwmrc.patch
+Patch4:		%{name}-ppc_fix.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	byacc
 Requires:	XFree86-libs
@@ -127,6 +128,11 @@ mv -f *.tmpl *.rules *.def OPENGROUP
 ln -sf /usr/X11R6/lib/X11/config/* .
 rm -f Motif.tmpl Motif.rules host.def
 mv -f OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
+
+%ifarch ppc
+rm linux.cf
+%patch4 -p3
+%endif
 
 %build
 %{__make} World \
