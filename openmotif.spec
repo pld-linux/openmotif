@@ -22,12 +22,13 @@ Patch0:		%{name}-makedepend.patch
 Patch1:		%{name}-am-uil.patch
 Patch2:		%{name}-mwmrc.patch
 Patch3:		%{name}-gcc34.patch
+Patch4:		%{name}-bison.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	XFree86
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	byacc
+BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libtool
 Requires:	%{name}-libs = %{version}-%{release}
@@ -141,6 +142,7 @@ mwmrc oraz zasoby Mwm.
 %patch1 -p1
 %patch2 -p1
 #%patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
