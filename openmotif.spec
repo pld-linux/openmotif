@@ -2,11 +2,11 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.2.3
-Release:	1
+Release:	2
 License:	Open Group Public License
 Group:		X11/Libraries
-Source0:	ftp://ftp.ics.com/pub/Products/Motif/om%{version}/%{name}%{version}.tar.gz
-# Source0-md5:	6954a64b0de1f9c6c68e9e0e3800593d
+Source0:	http://ftp.ics.com/pub/Products/Motif/om%{version}/src/openMotif-%{version}.tar.gz
+# Source0-md5:	94c96a0f94ee0d5e41d3dba2188b263d
 #Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
@@ -23,6 +23,7 @@ Patch3:		%{name}-gcc34.patch
 #Patch5:	%{name}-ac-fixes.patch
 #Patch6:	%{name}-am-demos.patch
 #Patch8:	%{name}-am-animate.patch
+URL:		http://www.openmotif.org/
 BuildRequires:	XFree86
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
