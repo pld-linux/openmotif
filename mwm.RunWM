@@ -6,8 +6,8 @@
 if [ -x /usr/X11R6/bin/mwm ] ; then
 	if [ ! -e $HOME/.mwmrc ] ; then
 		MWMRC="`mktemp /tmp/mwmrcXXXXXX`"
-		wmconfig --output=mwm --rootmenu=Programs \
-			--post=/etc/X11/mwm/system.mwmrc > $MWMRC 2>/dev/null
+		( cat /etc/X11/mwm/system.mwmrc
+		  wmconfig --output=mwm --rootmenu=Programs ) > $MWMRC 2>/dev/null
 		eval "exec /usr/X11R6/bin/mwm -xrm \"mwm*configFile: $MWMRC\""
 	else
 		# if this works, we stop here
