@@ -34,7 +34,7 @@ applications that run on UNIX platforms for Sun, HP, IBM, Compaq, SGI,
 and others.
 
 %description -l pl
-Motif jest standartem wygl±du interfejsu graficznego dla aplikacji
+Motif jest standardem wygl±du interfejsu graficznego dla aplikacji
 dzia³aj±cych w ¶rodowiskach UNIX takich jak Sun, HP, IBM, Compaq, SGI
 i inne.
 
