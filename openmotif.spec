@@ -6,6 +6,7 @@ Release:	0.7
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://openmotif.opengroup.org/pub/openmotif/R2.2/tars/%{name}-%{version}.tgz
+# Source0-md5: c5953e0fa08f79644e7bef9da218bb4b
 #Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
