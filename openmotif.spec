@@ -17,6 +17,7 @@ Patch3:		%{name}-mwmrc.patch
 Patch4:		%{name}-ppc_fix.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	byacc
+BuildRequires:	flex
 Requires:	XFree86-libs
 Provides:	motif = 2.1
 # Not restricted, lesstif provided library version 1.2
