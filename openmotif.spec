@@ -21,9 +21,11 @@ Patch6:		%{name}-am-demos.patch
 Patch7:		%{name}-am-uil.patch
 Patch8:		%{name}-am-animate.patch
 BuildRequires:	XFree86-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	byacc
 BuildRequires:	flex
-Requires:	XFree86-libs
+BuildRequires:	libtool
 Provides:	motif = 2.2
 # Not restricted, lesstif provided library version 1.2
 # OpenMotif provide library version 2.1
