@@ -16,7 +16,6 @@ Source0:	http://ftp.ics.com/pub/Products/Motif/om%{version}/src/openMotif-%{vers
 #Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
-Source4:	mwm.wm_style
 Source5:	mwm-xsession.desktop
 Source6:	ac_find_motif.m4
 Patch0:		%{name}-makedepend.patch
@@ -178,7 +177,6 @@ cd ..
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
-install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.names
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
 
@@ -250,7 +248,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/X11/mwm
 %config %{_sysconfdir}/X11/mwm/*
 %attr(755,root,root) /etc/sysconfig/wmstyle/*.sh
-/etc/sysconfig/wmstyle/*.names
 %{_datadir}/xsessions/mwm.desktop
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*
