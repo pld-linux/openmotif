@@ -157,7 +157,7 @@ mwmrc oraz zasoby Mwm.
 %{__make} clean
 %{__make}
 
-# workaround - don't let rebuild onHelp with wrong options during %install
+# workaround - don't let rebuild onHelp with wrong options during %%install
 #touch demos/lib/Xmd/onHelp.o demos/lib/Xmd/onHelp
 
 %install
