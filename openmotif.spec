@@ -207,13 +207,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xmform
 /etc/X11/app-defaults/Fileview
 /etc/X11/app-defaults/Xmd*
-%{_libdir}/X11/uid/C/uid/*
-%{_libdir}/X11/uid/english/uid/*
-%{_libdir}/X11/uid/french/uid/*
-%{_libdir}/X11/uid/hebrew/uid/*
-%{_libdir}/X11/uid/japanese/uid/*
-%{_libdir}/X11/uid/swedish/uid/*
-%{_libdir}/X11/uid/*.uid
+%{_libdir}/X11/uid/*
 %{_mandir}/man1/DNDDemo.1*
 %{_mandir}/man1/autopopups.1*
 %{_mandir}/man1/draw.1*
