@@ -32,7 +32,7 @@ Provides:	motif = 2.2
 # Not restricted, lesstif provided library version 1.2
 # OpenMotif provide library version 2.1
 #Obsoletes:	lesstif
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Motif is the user interface standart in the Enterprise for
