@@ -11,7 +11,7 @@ Source1:	openmotif-2.1.30-icsextra.tgz
 Patch0:		openmotif-makedepend.patch
 Patch1:		openmotif-build.patch
 Patch2:		openmotif-mwm.patch
-BuildRequires:	XFree86-devel
+BuildRequires:	XFree86-devel >= 4.0
 BuildRequires:	byacc
 #Requires:	
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
