@@ -68,6 +68,7 @@ Summary:	OpenMotif devel
 Summary(pl):	Pliki nag³ówkowe OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
+Requires:	XFree86-devel
 Provides:	motif-devel = 2.1
 Obsoletes:	lesstif-devel
 
