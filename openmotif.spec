@@ -143,12 +143,12 @@ find -name \*.ps -print | xargs gzip -9nf)
 
 gzip -9nf doc/ps/README* LICENSE COPYRIGHT.MOTIF OPENBUGS README.ICS \
 	doc/ics/*.txt RELNOTES \
-	$RPM_BUILD_ROOT%{_mandir}/man{1,3,4,5}/*
+	$RPM_BUILD_ROOT%{_mandir}/man*/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
+%post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files
@@ -174,8 +174,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/Mrm
 %{_includedir}/Xm
 %{_includedir}/uil
-%{_mandir}/man3/*.gz
-%{_mandir}/man5/*.gz
+%{_mandir}/man3/*
+%{_mandir}/man5/*
 
 %files static
 %defattr(644,root,root,755)
@@ -245,4 +245,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/X11/system.mwmrc
 %{_libdir}/X11/app-defaults/Mwm
 %{_mandir}/man1/mwm.1*
-%{_mandir}/man4/*.gz
+%{_mandir}/man4/*
