@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# RunWM - this is a script used to launch window manager
+#
+
+if [ -x /usr/X11R6/bin/mwm ] ; then
+	if [ ! -e $HOME/.mwmrc ] ; then
+		MWMRC="`mktemp /tmp/mwmrcXXXXXX`"
+		wmconfig --output=mwm --rootmenu=Programs \
+			--post=/etc/X11/mwm/system.mwmrc > $MWMRC 2>/dev/null
+		eval "exec /usr/X11R6/bin/mwm -xrm \"mwm*configFile: $MWMRC\""
+	else
+		# if this works, we stop here
+		eval "exec /usr/X11R6/bin/mwm"
+	fi
+else
+cat <<EOF
+ WARNING: You selected MWM as your window manager, but your installation
+ of MWM does not appear to be functional. The file /usr/X11R6/bin/mwm
+ could not be found.
+EOF
+fi
