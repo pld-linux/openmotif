@@ -25,8 +25,6 @@ Provides:	motif = 2.1
 #Obsoletes:	lesstif
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 
 %description
 Motif is the user interface standart in the Enterprise for
