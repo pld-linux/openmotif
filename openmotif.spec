@@ -14,6 +14,9 @@ Patch2:		openmotif-mwm.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	byacc
 Requires:	XFree86-libs
+# Not restricted, lesstif provided library version 1.0.2
+# OpenMotif provide library version 2.1
+#Obsoletes:	lesstif
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -29,10 +32,11 @@ dzia³aj±cych w ¶rodowiskach UNIX takich jak Sun, HP, IBM, Compaq, SGI i inne.
 
 
 %package clients
-Summary:	Morif clients
+Summary:	Motif clients
 Group:		X11/Applications
 Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
+Obsoletes:	lesstif-clients
 
 %description clients
 Uil and xmbind.
@@ -44,6 +48,7 @@ Group:		X11/Development/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name} = %{version}
 Provides:	motif-devel
+Obsoletes:	lesstif-devel
 
 %description devel
 
@@ -56,6 +61,7 @@ Group:		X11/Development/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
 Provides:	motif-static
+Obsoletes:	lesstif-static
 
 %description static
 
@@ -77,6 +83,7 @@ Summary:	Motif window manager
 Group:		X11/Window Managers
 Group(pl):	X11/Zarz±dcy Okien
 Requires:	%{name} = %{version}
+Obsoletes:	lesstif-mwm
 
 %description mwm
 A BETA release of mwm.  It is derived from fvwm, with a new parser that
