@@ -1,0 +1,74 @@
+--- motif/clients/mwm/WmResParse.c~	Tue May  2 17:53:42 2000
++++ motif/clients/mwm/WmResParse.c	Sat Jun 24 02:16:58 2000
+@@ -2395,7 +2395,5 @@
+ #endif /* PANELIST */
+ 
+-#ifndef LIBDIR
+-#define LIBDIR "/usr/lib/X11"
++#define LIBDIR "/etc/X11/mwm"
+-#endif
+     if (LANG != NULL)
+     {
+--- motif/doc/man/man1/mwm.1~	Fri Apr 28 17:05:27 2000
++++ motif/doc/man/man1/mwm.1	Sat Jun 24 02:19:14 2000
+@@ -1347,9 +1347,9 @@
+ function\&.
+ .SS "Files"
+ .PP
+-\fB/usr/lib/X11/$LANG/system\&.mwmrc\fP
++\fB/etc/X11/mwm/$LANG/system\&.mwmrc\fP
+ .PP
+-\fB/usr/lib/X11/system\&.mwmrc\fP
++\fB/etc/X11/mwm/system\&.mwmrc\fP
+ .PP
+ \fB/usr/lib/X11/app-defaults/Mwm\fP
+ .PP
+--- motif/doc/man/man4/mwmrc.4~	Fri Apr 28 17:05:28 2000
++++ motif/doc/man/man4/mwmrc.4	Sat Jun 24 02:20:32 2000
+@@ -75,8 +75,8 @@
+ .nf
+ \f(CW$HOME/$LANG/\&.mwmrc
+ $HOME/\&.mwmrc
+-/usr/lib/X11/$LANG/system\&.mwmrc
+-/usr/lib/X11/system\&.mwmrc\fR
++/etc/X11/mwm/$LANG/system\&.mwmrc
++/etc/X11/mwm/system\&.mwmrc\fR
+ .fi
+ .PP
+ .PP
+@@ -625,8 +625,8 @@
+ .PP
+ \fB$HOME/$LANG/\&.mwmrc
+ $HOME/\&.mwmrc
+-/usr/lib/X11/$LANG/system\&.mwmrc
+-/usr/lib/X11/system\&.mwmrc
++/etc/X11/mwm/$LANG/system\&.mwmrc
++/wtc/X11/mwm/system\&.mwmrc
+ $HOME/\&.mwm/errorlog\fP
+ .SH "RELATED INFORMATION"
+ .PP
+--- motif/clients/mwm/system.mwmrc~	Wed May  3 11:12:34 2000
++++ motif/clients/mwm/system.mwmrc	Sat Jun 24 03:32:44 2000
+@@ -60,10 +60,10 @@
+ 	"Shuffle Down"		f.circle_down
+ 	"Refresh"		f.refresh
+ 	"Pack Icons"		f.pack_icons
+-!	"Toggle Behavior..."	f.set_behavior
++	"Toggle Behavior..."	f.set_behavior
+ 	 no-label		f.separator
+ 	"Restart..."		f.restart
+-!	"Quit..."		f.quit_mwm
++	"Quit..."		f.quit_mwm
+ 
+ }
+ 
+--- motif/clients/mwm/WmResource.c~	Tue May  2 17:53:42 2000
++++ motif/clients/mwm/WmResource.c	Sat Jun 24 03:35:48 2000
+@@ -508,6 +508,7 @@
+ 	\"Pack Icons\"		f.pack_icons\n\
+ 	 no-label		f.separator\n\
+ 	\"Restart...\"		f.restart\n\
++	\"Quit...\"		f.quit_mwm\n\
+ }";
+ char builtinRootMenu[] = BUILTINROOTMENU
+ #else /* MCCABE */
