@@ -1,30 +1,33 @@
 Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
-Version:	2.1.30
-Release:	8
+Version:	2.2.2
+Release:	0.7
 License:	Open Group Public License
 Group:		X11/Libraries
-Source0:	ftp://ftp.uk.linux.org/pub/linux/openmotif/source/%{name}-%{version}-src.tgz
-Source1:	%{name}-%{version}-icsextra.tgz
+Source0:	ftp://openmotif.opengroup.org/pub/openmotif/R2.2/tars/%{name}-%{version}.tgz
+#Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
 Source4:	mwm.wm_style
 Patch0:		%{name}-makedepend.patch
-Patch1:		%{name}-build.patch
-Patch2:		%{name}-mwm.patch
-Patch3:		%{name}-mwmrc.patch
+#Patch1:		%{name}-build.patch
+#Patch2:		%{name}-mwm.patch
+#Patch3:		%{name}-mwmrc.patch
 Patch4:		%{name}-ppc_fix.patch
+Patch5:		%{name}-ac-fixes.patch
+Patch6:		%{name}-am-demos.patch
+Patch7:		%{name}-am-uil.patch
+Patch8:		%{name}-am-animate.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	byacc
 BuildRequires:	flex
 Requires:	XFree86-libs
-Provides:	motif = 2.1
+Provides:	motif = 2.2
 # Not restricted, lesstif provided library version 1.2
 # OpenMotif provide library version 2.1
 #Obsoletes:	lesstif
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
 
 %description
 Motif is the user interface standart in the Enterprise for
@@ -108,64 +111,80 @@ Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiej±cy sk³adniê
 mwmrc oraz zasoby Mwm.
 
 %prep
-%setup -q -n motif -b 1
-rm -f config/cf/host.def
+%setup -q
+#-b 1
+#rm -f config/cf/host.def
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+#%patch1 -p1
+#%patch2 -p1
+#%patch3 -p1
 
-touch clients/mwm/mwm.man
+#touch clients/mwm/mwm.man
 
-mkdir -p imports/x11
-cd imports/x11
-ln -sf /usr/X11R6/include .
-ln -sf /usr/X11R6/lib .
-cd ../../config/cf
-mkdir OPENGROUP
-mv -f *.tmpl *.rules *.def OPENGROUP
-ln -sf /usr/X11R6/lib/X11/config/* .
-rm -f Motif.tmpl Motif.rules host.def
-mv -f OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
+#mkdir -p imports/x11
+#cd imports/x11
+#ln -sf /usr/X11R6/include .
+#ln -sf /usr/X11R6/lib .
+#cd ../../config/cf
+#mkdir OPENGROUP
+#mv -f *.tmpl *.rules *.def OPENGROUP
+#ln -sf /usr/X11R6/lib/X11/config/* .
+#rm -f Motif.tmpl Motif.rules host.def
+#mv -f OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
 
-%ifarch ppc
-rm linux.cf
-%patch4 -p3
-%endif
+#%ifarch ppc
+#rm linux.cf
+#%patch4 -p3
+#%endif
 
 %build
-%{__make} World \
-	IMAKE_DEFINES="-DYaccCmd=yacc" \
-	BOOTSTRAPCFLAGS="%{rpmcflags}" \
-	CDEBUGFLAGS="" CCOPTIONS="%{rpmcflags}" \
-	CXXDEBUGFLAGS="" CXXOPTIONS="%{rpmcflags}" \
-	RAWCPP="/lib/cpp"
+rm -f missing
+%{__libtoolize}
+#%%{__gettextize}
+%{__aclocal}
+%{__automake}
+%{__autoconf}
+%configure
+%{__make} clean
+%{__make}
+
+#%{__make} World \
+#	IMAKE_DEFINES="-DYaccCmd=yacc" \
+#	BOOTSTRAPCFLAGS="%{rpmcflags}" \
+#	CDEBUGFLAGS="" CCOPTIONS="%{rpmcflags}" \
+#	CXXDEBUGFLAGS="" CXXOPTIONS="%{rpmcflags}" \
+#	RAWCPP="/lib/cpp"
 
 # workaround - don't let rebuild onHelp with wrong options during %install
-touch demos/lib/Xmd/onHelp.o demos/lib/Xmd/onHelp
+#touch demos/lib/Xmd/onHelp.o demos/lib/Xmd/onHelp
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,/etc/{sysconfig/wmstyle,X11/mwm}}
 
-%{__make} DESTDIR="$RPM_BUILD_ROOT" \
-	INSTBINFLAGS="-m 755" \
-	INSTPGMFLAGS="-m 755" \
-	RAWCPP="/lib/cpp" \
-	install install.man
+%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+#	INSTBINFLAGS="-m 755" \
+#	INSTPGMFLAGS="-m 755" \
+#	RAWCPP="/lib/cpp" \
+#	install install.man
 
-cp -a doc/man/* $RPM_BUILD_ROOT%{_mandir}
-mv -f $RPM_BUILD_ROOT%{_mandir}/man1/animate.1x \
-	$RPM_BUILD_ROOT%{_mandir}/man1/xmanimate.1x
+#cp -a doc/man/* $RPM_BUILD_ROOT%{_mandir}
+#mv -f $RPM_BUILD_ROOT%{_mandir}/man1/animate.1x \
+#$RPM_BUILD_ROOT%{_mandir}/man1/xmanimate.1x
 
+#
 (cd demos
 %{__make} clean
 cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif/)
-
-(cd doc/ps
-find -name \*.Z -print | xargs uncompress
-find -name \*.ps -print | xargs gzip -9nf)
-
+#
+#(cd doc/ps
+#find -name \*.Z -print | xargs uncompress
+#find -name \*.ps -print | xargs gzip -9nf)
+#
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
@@ -183,7 +202,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/ics/*.txt RELNOTES
 %dir %{_libdir}/X11/uid
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_includedir}/bitmaps/*
+%{_includedir}/X11/bitmaps/*
 %{_libdir}/X11/bindings
 
 %files clients
