@@ -2,7 +2,7 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.2.3
-Release:	0.1
+Release:	0.2
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/pub/Products/Motif/om%{version}/%{name}%{version}.tar.gz
@@ -12,6 +12,7 @@ Source2:	mwmrc
 Source3:	mwm.RunWM
 Source4:	mwm.wm_style
 Source5:	mwm-xsession.desktop
+Source6:	ac_find_motif.m4
 Patch0:		%{name}-makedepend.patch
 #Patch1:		%{name}-build.patch
 #Patch2:		%{name}-mwm.patch
@@ -132,19 +133,7 @@ mwmrc oraz zasoby Mwm.
 #%patch2 -p1
 #%patch3 -p1
 
-#touch clients/mwm/mwm.man
-
-#mkdir -p imports/x11
-#cd imports/x11
-#ln -sf /usr/X11R6/include .
-#ln -sf /usr/X11R6/lib .
-#cd ../../config/cf
-#mkdir OPENGROUP
-#mv -f *.tmpl *.rules *.def OPENGROUP
-#ln -sf /usr/X11R6/lib/X11/config/* .
-#rm -f Motif.tmpl Motif.rules host.def
-#mv -f OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
-
+#cd config/cf
 #%ifarch ppc
 #rm linux.cf
 #%patch4 -p3
@@ -152,7 +141,6 @@ mwmrc oraz zasoby Mwm.
 
 %build
 %{__libtoolize}
-#%%{__gettextize}
 %{__aclocal}
 %{__autoheader}
 %{__automake}
@@ -163,50 +151,30 @@ mwmrc oraz zasoby Mwm.
 %{__make} clean
 %{__make}
 
-#%%{__make} World \
-#	IMAKE_DEFINES="-DYaccCmd=yacc" \
-#	BOOTSTRAPCFLAGS="%{rpmcflags}" \
-#	CDEBUGFLAGS="" CCOPTIONS="%{rpmcflags}" \
-#	CXXDEBUGFLAGS="" CXXOPTIONS="%{rpmcflags}" \
-#	RAWCPP="/lib/cpp"
-
 # workaround - don't let rebuild onHelp with wrong options during %install
 #touch demos/lib/Xmd/onHelp.o demos/lib/Xmd/onHelp
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,%{_datadir}/xsessions} \
-	$RPM_BUILD_ROOT/etc/{sysconfig/wmstyle,X11/mwm}
+	$RPM_BUILD_ROOT{/etc/{sysconfig/wmstyle,X11/mwm},%{_aclocaldir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	bmdir=%{xbitmapsdir} \
 	binddir=%{xlibdir}/bindings
-#	INSTBINFLAGS="-m 755" \
-#	INSTPGMFLAGS="-m 755" \
-#	RAWCPP="/lib/cpp" \
-#	install install.man
 
-#cp -a doc/man/* $RPM_BUILD_ROOT%{_mandir}
-#mv -f $RPM_BUILD_ROOT%{_mandir}/man1/animate.1x \
-#$RPM_BUILD_ROOT%{_mandir}/man1/xmanimate.1x
-
-#
 cd demos
 %{__make} clean
 cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif
 cd ..
 
-#
-#(cd doc/ps
-#find -name \*.Z -print | xargs uncompress
-#find -name \*.ps -print | xargs gzip -9nf)
-#
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.names
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
+install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -238,6 +206,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/uil
 %{_mandir}/man3/*
 %{_mandir}/man5/*
+%{_aclocaldir}/*.m4
 
 %files static
 %defattr(644,root,root,755)
@@ -308,7 +277,6 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/X11/mwm/*
 %attr(755,root,root) /etc/sysconfig/wmstyle/*.sh
 /etc/sysconfig/wmstyle/*.names
-#%%{_libdir}/X11/app-defaults/Mwm
 %{_datadir}/xsessions/mwm.desktop
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*
