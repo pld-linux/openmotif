@@ -1,8 +1,8 @@
-Summary:	OpenMotif -
-Summary(pl):	OpenMotif -
+Summary:	OpenMotif
+Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.1.30
-Release:	4
+Release:	5
 Copyright:	Open Group Public License
 Group:		X11/Libraries
 Group(de):	X11/Libraries
@@ -20,7 +20,7 @@ Patch3:		%{name}-mwmrc.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	byacc
 Requires:	XFree86-libs
-# Not restricted, lesstif provided library version 1.0.2
+# Not restricted, lesstif provided library version 1.2
 # OpenMotif provide library version 2.1
 #Obsoletes:	lesstif
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -125,6 +125,8 @@ rm -f config/cf/host.def
 %patch2 -p1
 %patch3 -p1
 
+touch clients/mwm/mwm.man
+
 mkdir -p imports/x11
 cd imports/x11
 ln -sf /usr/X11R6/include .
@@ -135,6 +137,7 @@ mv -f *.tmpl *.rules *.def OPENGROUP
 ln -sf /usr/X11R6/lib/X11/config/* .
 rm -f Motif.tmpl Motif.rules host.def
 mv -f OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
+
 
 %build
 %{__make} World \
