@@ -14,14 +14,15 @@ Source4:	mwm.wm_style
 Source5:	mwm-xsession.desktop
 Source6:	ac_find_motif.m4
 Patch0:		%{name}-makedepend.patch
-#Patch1:		%{name}-build.patch
-#Patch2:		%{name}-mwm.patch
-#Patch3:		%{name}-mwmrc.patch
-Patch4:		%{name}-ppc_fix.patch
-Patch5:		%{name}-ac-fixes.patch
-Patch6:		%{name}-am-demos.patch
-Patch7:		%{name}-am-uil.patch
-Patch8:		%{name}-am-animate.patch
+Patch1:		%{name}-am-uil.patch
+Patch2:		%{name}-mwmrc.patch
+Patch3:		%{name}-gcc34.patch
+#Patch1:	%{name}-build.patch
+#Patch2:	%{name}-mwm.patch
+#Patch4:	%{name}-ppc_fix.patch
+#Patch5:	%{name}-ac-fixes.patch
+#Patch6:	%{name}-am-demos.patch
+#Patch8:	%{name}-am-animate.patch
 BuildRequires:	XFree86
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -136,22 +137,10 @@ mwmrc oraz zasoby Mwm.
 
 %prep
 %setup -q -c
-#-b 1
-#rm -f config/cf/host.def
 %patch0 -p1
-#%patch5 -p1
-#%patch6 -p1
-%patch7 -p1
-#%patch8 -p1
-#%patch1 -p1
-#%patch2 -p1
-#%patch3 -p1
-
-#cd config/cf
-#%ifarch ppc
-#rm linux.cf
-#%patch4 -p3
-#%endif
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -159,9 +148,11 @@ mwmrc oraz zasoby Mwm.
 %{__autoheader}
 %{__automake}
 %{__autoconf}
+
 %configure \
 	--enable-shared \
 	--enable-static
+
 %{__make} clean
 %{__make}
 
