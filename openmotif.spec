@@ -11,9 +11,9 @@ Source1:	openmotif-2.1.30-icsextra.tgz
 Patch0:		openmotif-makedepend.patch
 Patch1:		openmotif-build.patch
 Patch2:		openmotif-mwm.patch
-BuildRequires:	XFree86-devel >= 4.0
+BuildRequires:	XFree86-devel
 BuildRequires:	byacc
-Requires:	XFree86-libs >= 4.0
+Requires:	XFree86-libs
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -205,8 +205,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xmfonts
 %attr(755,root,root) %{_bindir}/xmforc
 %attr(755,root,root) %{_bindir}/xmform
-/etc/X11/app-defaults/Fileview
-/etc/X11/app-defaults/Xmd*
+%{_libdir}/X11/app-defaults/Fileview
+%{_libdir}/X11/app-defaults/Xmd*
 %{_libdir}/X11/uid/*
 %{_mandir}/man1/DNDDemo.1*
 %{_mandir}/man1/autopopups.1*
@@ -234,6 +234,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/mwm
 %{_libdir}/X11/system.mwmrc
-/etc/X11/app-defaults/Mwm
+%{_libdir}/X11/app-defaults/Mwm
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*.gz
