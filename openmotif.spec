@@ -172,9 +172,6 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.names
 
-gzip -9nf doc/ps/README* LICENSE COPYRIGHT.MOTIF OPENBUGS README.ICS \
-	doc/ics/*.txt RELNOTES
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
