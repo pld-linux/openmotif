@@ -5,16 +5,18 @@ Version:	2.1.30
 Release:	4
 Copyright:	Open Group Public License
 Group:		X11/Libraries
+Group(de):	X11/Libraries
+Group(es):	X11/Bibliotecas
 Group(pl):	X11/Biblioteki
 Source0:	ftp://ftp.uk.linux.org/pub/linux/openmotif/source/%{name}-%{version}-src.tgz
-Source1:	openmotif-2.1.30-icsextra.tgz
+Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
 Source4:	mwm.wm_style
-Patch0:		openmotif-makedepend.patch
-Patch1:		openmotif-build.patch
-Patch2:		openmotif-mwm.patch
-Patch3:		openmotif-mwmrc.patch
+Patch0:		%{name}-makedepend.patch
+Patch1:		%{name}-build.patch
+Patch2:		%{name}-mwm.patch
+Patch3:		%{name}-mwmrc.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	byacc
 Requires:	XFree86-libs
@@ -27,17 +29,21 @@ Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_mandir		%{_prefix}/man
 
 %description
-Motif is the user interface standart in the Enterprise for applications
-that run on UNIX platforms for Sun, HP, IBM, Compaq, SGI, and others.
+Motif is the user interface standart in the Enterprise for
+applications that run on UNIX platforms for Sun, HP, IBM, Compaq, SGI,
+and others.
 
 %description -l pl
 Motif jest standartem wygl±du interfejsu graficznego dla aplikacji
-dzia³aj±cych w ¶rodowiskach UNIX takich jak Sun, HP, IBM, Compaq, SGI i inne.
+dzia³aj±cych w ¶rodowiskach UNIX takich jak Sun, HP, IBM, Compaq, SGI
+i inne.
 
 
 %package clients
-Summary:	Motif clients
+Summary:	OpenMotif clients
+Summary(pl):	OpenMotif - programy klienckie
 Group:		X11/Applications
+Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
 Obsoletes:	lesstif-clients
@@ -45,46 +51,60 @@ Obsoletes:	lesstif-clients
 %description clients
 Uil and xmbind.
 
+%description clients -l pl
+uil i xmbind.
+
 %package devel
 Summary:	OpenMotif devel
-Summary(pl):	OpenMotif devel
+Summary(pl):	Pliki nag³ówkowe OpenMotif
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name} = %{version}
 Provides:	motif-devel
 Obsoletes:	lesstif-devel
 
 %description devel
+Header files for OpenMotif.
 
 %description -l pl devel
+Pliki nag³ówkowe dla bibliotek OpenMotif.
 
 %package static
 Summary:	OpenMotif static
-Summary(pl):	OpenMotif static
+Summary(pl):	Statyczne biblioteki OpenMotif
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
 Provides:	motif-static
 Obsoletes:	lesstif-static
 
 %description static
+OpenMotif static libraries.
 
 %description -l pl static
+Biblioteki statyczne OpenMotif.
 
 %package demos
 Summary:	OpenMotif demos
-Summary(pl):	OpenMotif demos
+Summary(pl):	Programy demonstracyjne do OpenMotif
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
 
 %description demos
+OpenMotif demos.
 
 %description -l pl demos
+Programy demonstracyjne do OpenMotif.
 
 %package mwm
 Summary:	Motif window manager
+Summary(pl):	Motifowy zarz±dca okien
 Group:		X11/Window Managers
+Group(de):	X11/Fenstermanager
 Group(pl):	X11/Zarz±dcy Okien
 Requires:	%{name} = %{version}
 Requires:	wmconfig >= 0.9.9-5
@@ -92,8 +112,9 @@ Requires:	xinitrc >= 3.0
 Obsoletes:	lesstif-mwm
 
 %description mwm
-A BETA release of mwm.  It is derived from fvwm, with a new parser that
-understands mwmrc syntax, and a general understanding of Mwm resources.
+A BETA release of mwm. It is derived from fvwm, with a new parser that
+understands mwmrc syntax, and a general understanding of Mwm
+resources.
 
 %prep
 %setup -q -n motif
@@ -106,22 +127,22 @@ rm -f config/cf/host.def
 
 mkdir -p imports/x11
 cd imports/x11
-ln -s /usr/X11R6/include .
-ln -s /usr/X11R6/lib .
+ln -sf /usr/X11R6/include .
+ln -sf /usr/X11R6/lib .
 cd ../../config/cf
 mkdir OPENGROUP
-mv *.tmpl *.rules *.def OPENGROUP
-ln -s /usr/X11R6/lib/X11/config/* .
-rm Motif.tmpl Motif.rules host.def
-mv OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
+mv -f *.tmpl *.rules *.def OPENGROUP
+ln -sf /usr/X11R6/lib/X11/config/* .
+rm -f Motif.tmpl Motif.rules host.def
+mv -f OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
 
 %build
 %{__make} World \
 	IMAKE_DEFINES="-DYaccCmd=yacc" \
-	"BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
-	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
-	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS" \
-	"RAWCPP=/lib/cpp"
+	BOOTSTRAPCFLAGS="%{rpmcflags}" \
+	"CDEBUGFLAGS=" CCOPTIONS="%{rpmcflags}" \
+	"CXXDEBUGFLAGS=" CXXOPTIONS="%{rpmcflags}" \
+	RAWCPP="/lib/cpp"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -132,9 +153,6 @@ install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,/etc/{sysconfig/wmstyle,X11/mwm
 	"INSTPGMFLAGS=-m 755" \
 	"RAWCPP=/lib/cpp" \
 	install install.man
-
-strip --strip-unneeded $RPM_BUILD_ROOT%{_bindir}/* || :
-strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
 
 cp -a doc/man/* $RPM_BUILD_ROOT%{_mandir}
 mv -f $RPM_BUILD_ROOT%{_mandir}/man1/animate.1x \
@@ -154,8 +172,7 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.names
 
 gzip -9nf doc/ps/README* LICENSE COPYRIGHT.MOTIF OPENBUGS README.ICS \
-	doc/ics/*.txt RELNOTES \
-	$RPM_BUILD_ROOT%{_mandir}/man*/*
+	doc/ics/*.txt RELNOTES
 
 %clean
 rm -rf $RPM_BUILD_ROOT
