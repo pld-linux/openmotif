@@ -38,7 +38,7 @@ diff -rc motif.orig/config/cf/host.def motif/config/cf/host.def
 --- motif/config/cf/host.def	Mon May 22 15:54:41 2000
 ***************
 *** 0 ****
---- 1,13 ----
+--- 1,14 ----
 + #define TopLevelProject         Motif
 + #define ProjectRoot             /usr/X11R6
 + #define X11ProjectRoot          /usr/X11R6
@@ -52,6 +52,7 @@ diff -rc motif.orig/config/cf/host.def motif/config/cf/host.def
 + #define DebugLibUil             NO
 + #define LexLib                  -lfl
 + #define YaccCmd                 yacc
++ #define DefaultGcc2i386Opt      -02
 diff -rc motif.orig/demos/programs/Imakefile motif/demos/programs/Imakefile
 *** motif.orig/demos/programs/Imakefile	Wed May  3 05:12:36 2000
 --- motif/demos/programs/Imakefile	Mon May 22 12:55:46 2000
