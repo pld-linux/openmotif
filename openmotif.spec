@@ -20,6 +20,7 @@ Patch3:		%{name}-mwmrc.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	byacc
 Requires:	XFree86-libs
+Provides:	motif = 2.1
 # Not restricted, lesstif provided library version 1.2
 # OpenMotif provide library version 2.1
 #Obsoletes:	lesstif
@@ -61,7 +62,7 @@ Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name} = %{version}
-Provides:	motif-devel
+Provides:	motif-devel = 2.1
 Obsoletes:	lesstif-devel
 
 %description devel
