@@ -2,7 +2,7 @@ Summary:	OpenMotif -
 Summary(pl):	OpenMotif -
 Name:		openmotif
 Version:	2.1.30
-Release:	1
+Release:	2
 Copyright:	Open Group Public License
 Group:		X11/Libraries
 Group(pl):	X11/Biblioteki
@@ -43,6 +43,7 @@ Summary(pl):	OpenMotif devel
 Group:		X11/Development/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name} = %{version}
+Provides:	motif-devel
 
 %description devel
 
@@ -54,6 +55,7 @@ Summary(pl):	OpenMotif static
 Group:		X11/Development/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
+Provides:	motif-static
 
 %description static
 
