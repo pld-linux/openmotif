@@ -2,7 +2,7 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.2.3
-Release:	0.3
+Release:	1
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/pub/Products/Motif/om%{version}/%{name}%{version}.tar.gz
