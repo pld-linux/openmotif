@@ -2,7 +2,7 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.1.30
-Release:	7
+Release:	8
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.uk.linux.org/pub/linux/openmotif/source/%{name}-%{version}-src.tgz
@@ -183,8 +183,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE.gz COPYRIGHT.MOTIF.gz OPENBUGS.gz README.ICS.gz
-%doc doc/ics/*.gz RELNOTES.gz
+%doc doc/ps/README* LICENSE COPYRIGHT.MOTIF OPENBUGS README.ICS
+%doc doc/ics/*.txt RELNOTES
 %dir %{_libdir}/X11/uid
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_includedir}/bitmaps/*
