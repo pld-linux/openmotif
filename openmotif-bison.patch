@@ -1,0 +1,329 @@
+--- openMotif-2.2.3/configure.in.orig	2004-03-03 10:21:33.000000000 +0000
++++ openMotif-2.2.3/configure.in	2004-07-24 23:57:51.015614270 +0000
+@@ -32,9 +32,9 @@
+ AM_PROG_LIBTOOL
+ AC_EXEEXT
+ 
+-dnl AC_PROG_YACC
++AC_PROG_YACC
+ dnl Do this the old fashioned way. 'bison -y' doesn't cut it
+-AC_CHECK_PROGS(YACC, byacc, yacc)
++dnl AC_CHECK_PROGS(YACC, byacc, yacc)
+ 
+ AM_PROG_LEX
+ AC_PROG_INSTALL
+--- openMotif-2.2.3/tools/wml/Uil.y.orig	2003-08-15 17:48:15.000000000 +0000
++++ openMotif-2.2.3/tools/wml/Uil.y	2004-07-24 23:53:59.386710858 +0000
+@@ -59,6 +59,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ #include "UilDefI.h"
+ #include "UilCompGl.h"
+ 
+@@ -1051,7 +1054,6 @@
+  									sar_private_error( &$$ );
+  								  }
+ 							}
+-    ;
+      | value							{ $$ = $1; 
+  								  if ($$.b_type != sym_k_error_value)
+  								  {
+--- openMotif-2.2.3/tools/wml/wmldbcreate.c.orig	2003-10-08 21:07:48.000000000 +0000
++++ openMotif-2.2.3/tools/wml/wmldbcreate.c	2004-07-24 23:55:39.212881510 +0000
+@@ -45,7 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+-
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ /*
+ *  (c) Copyright 1989, 1990, DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS. */
+--- openMotif-2.2.3/clients/uil/UilCmd.c.orig	2002-02-05 16:48:25.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilCmd.c	2004-07-25 00:18:12.352513372 +0000
+@@ -45,7 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+-
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ /*
+ *  (c) Copyright 1989, 1990, DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS. */
+--- openMotif-2.2.3/clients/uil/UilDiags.c.orig	2002-01-10 20:55:42.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilDiags.c	2004-07-25 00:19:25.954074970 +0000
+@@ -45,7 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+-
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ /*
+ *  (c) Copyright 1989, 1990, DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS. */
+--- openMotif-2.2.3/clients/uil/UilKeyTab.c.orig	2002-01-10 20:55:42.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilKeyTab.c	2004-07-25 00:20:10.053683805 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilLexAna.c.orig	2002-01-10 20:55:43.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilLexAna.c	2004-07-25 00:20:43.037081838 +0000
+@@ -45,7 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+-
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ /*
+ *  (c) Copyright 1989, 1990, DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS. */
+--- openMotif-2.2.3/clients/uil/UilLstLst.c.orig	2002-01-10 20:55:43.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilLstLst.c	2004-07-25 00:21:53.031221606 +0000
+@@ -45,7 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+-
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ /*
+ *  (c) Copyright 1989, 1990, DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS. */
+--- openMotif-2.2.3/clients/uil/UilP2Out.c.orig	2002-01-10 20:55:44.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilP2Out.c	2004-07-25 00:22:44.679658473 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilP2Reslv.c.orig	2002-01-10 20:55:44.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilP2Reslv.c	2004-07-25 00:23:23.496064248 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSarComp.c.orig	2003-08-15 17:15:05.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSarComp.c	2004-07-25 00:25:42.036101613 +0000
+@@ -45,7 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+-
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ /*
+ *  (c) Copyright 1989, 1990, DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS. */
+--- openMotif-2.2.3/clients/uil/UilSarExp.c.orig	2002-01-10 20:55:45.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSarExp.c	2004-07-25 00:26:10.260710642 +0000
+@@ -45,7 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+-
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ /*
+ *  (c) Copyright 1989, 1990, DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS. */
+--- openMotif-2.2.3/clients/uil/UilSarInc.c.orig	2002-01-10 20:55:45.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSarInc.c	2004-07-25 00:26:30.274382272 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSarMod.c.orig	2002-01-10 20:55:45.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSarMod.c	2004-07-25 00:26:52.194303878 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSarObj.c.orig	2002-01-10 20:55:45.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSarObj.c	2004-07-25 00:27:12.709928627 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSarProc.c.orig	2002-01-10 20:55:46.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSarProc.c	2004-07-25 00:27:35.916959593 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSarVal.c.orig	2002-01-10 20:55:46.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSarVal.c	2004-07-25 00:27:54.599576551 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSrcSrc.c.orig	2002-01-10 20:55:47.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSrcSrc.c	2004-07-25 00:28:15.732388793 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSymNam.c.orig	2002-01-10 20:55:47.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSymNam.c	2004-07-25 00:28:35.569302612 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSymStor.c.orig	2002-01-10 20:55:48.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSymStor.c	2004-07-25 00:29:03.620083518 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilData.c.orig	2003-08-15 16:54:48.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilData.c	2004-07-25 00:29:30.066372257 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilLstMac.c.orig	2002-01-10 20:55:43.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilLstMac.c	2004-07-25 00:29:54.008754776 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSemVal.c.orig	2002-01-10 20:55:47.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSemVal.c	2004-07-25 00:30:21.896449747 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilSemCSet.c.orig	2002-01-10 20:55:47.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilSemCSet.c	2004-07-25 00:30:42.346644809 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilDB.c.orig	2003-08-15 17:15:05.000000000 +0000
++++ openMotif-2.2.3/clients/uil/UilDB.c	2004-07-25 00:31:02.083949255 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ 
+ /*
+--- openMotif-2.2.3/clients/uil/UilMain.c.orig	2004-07-25 00:52:41.887644270 +0000
++++ openMotif-2.2.3/clients/uil/UilMain.c	2004-07-25 00:51:30.036082650 +0000
+@@ -45,6 +45,9 @@
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
++#ifdef VERSION
++#undef VERSION
++#endif
+ 
+ /*
+ *  (c) Copyright 1989, 1990, DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS. */
