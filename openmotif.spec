@@ -2,15 +2,19 @@ Summary:	OpenMotif -
 Summary(pl):	OpenMotif -
 Name:		openmotif
 Version:	2.1.30
-Release:	2
+Release:	3
 Copyright:	Open Group Public License
 Group:		X11/Libraries
 Group(pl):	X11/Biblioteki
 Source0:	ftp://ftp.uk.linux.org/pub/linux/openmotif/source/%{name}-%{version}-src.tgz
 Source1:	openmotif-2.1.30-icsextra.tgz
+Source2:	mwmrc
+Source3:	mwmrc-pre
+Source4:	mwmrc-post
 Patch0:		openmotif-makedepend.patch
 Patch1:		openmotif-build.patch
 Patch2:		openmotif-mwm.patch
+Patch3:		openmotif-mwmrc.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	byacc
 Requires:	XFree86-libs
@@ -83,6 +87,7 @@ Summary:	Motif window manager
 Group:		X11/Window Managers
 Group(pl):	X11/Zarz±dcy Okien
 Requires:	%{name} = %{version}
+Requires:	wmconfig >= 0.9.8-3
 Obsoletes:	lesstif-mwm
 
 %description mwm
@@ -96,6 +101,7 @@ rm -f config/cf/host.def
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 mkdir -p imports/x11
 cd imports/x11
@@ -118,7 +124,7 @@ mv OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_examplesdir}/motif
+install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,/etc/X11/mwm}
 
 %{__make} "DESTDIR=$RPM_BUILD_ROOT" \
 	"INSTBINFLAGS=-m 755" \
@@ -140,6 +146,10 @@ cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif/)
 (cd doc/ps
 find -name \*.Z -print | xargs uncompress
 find -name \*.ps -print | xargs gzip -9nf)
+
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/X11/mwm/system.mwmrc
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/X11/mwm/
+install %{SOURCE4} $RPM_BUILD_ROOT/etc/X11/mwm/
 
 gzip -9nf doc/ps/README* LICENSE COPYRIGHT.MOTIF OPENBUGS README.ICS \
 	doc/ics/*.txt RELNOTES \
@@ -242,7 +252,8 @@ rm -rf $RPM_BUILD_ROOT
 %files mwm
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/mwm
-%{_libdir}/X11/system.mwmrc
+%dir /etc/X11/mwm
+%config /etc/X11/mwm/*
 %{_libdir}/X11/app-defaults/Mwm
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*
