@@ -13,7 +13,7 @@ Patch1:		openmotif-build.patch
 Patch2:		openmotif-mwm.patch
 BuildRequires:	XFree86-devel >= 4.0
 BuildRequires:	byacc
-#Requires:	
+Requires:	XFree86-libs >= 4.0
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
