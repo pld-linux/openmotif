@@ -3,11 +3,15 @@ Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.1.30
 Release:	5
-Copyright:	Open Group Public License
+License:	Open Group Public License
 Group:		X11/Libraries
 Group(de):	X11/Libraries
 Group(es):	X11/Bibliotecas
+Group(fr):	X11/Librairies
 Group(pl):	X11/Biblioteki
+Group(pt_BR):	X11/Bibliotecas
+Group(ru):	X11/Библиотеки
+Group(uk):	X11/Б╕бл╕отеки
 Source0:	ftp://ftp.uk.linux.org/pub/linux/openmotif/source/%{name}-%{version}-src.tgz
 Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
@@ -39,7 +43,6 @@ Motif jest standardem wygl╠du interfejsu graficznego dla aplikacji
 dziaЁaj╠cych w ╤rodowiskach UNIX takich jak Sun, HP, IBM, Compaq, SGI
 i inne.
 
-
 %package clients
 Summary:	OpenMotif clients
 Summary(pl):	OpenMotif - programy klienckie
@@ -60,7 +63,12 @@ Summary:	OpenMotif devel
 Summary(pl):	Pliki nagЁСwkowe OpenMotif
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
 Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/Разработка/Библиотеки
+Group(uk):	X11/Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 Provides:	motif-devel = 2.1
 Obsoletes:	lesstif-devel
@@ -76,7 +84,12 @@ Summary:	OpenMotif static
 Summary(pl):	Statyczne biblioteki OpenMotif
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
 Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/Разработка/Библиотеки
+Group(uk):	X11/Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 Provides:	motif-static
 Obsoletes:	lesstif-static
@@ -92,7 +105,12 @@ Summary:	OpenMotif demos
 Summary(pl):	Programy demonstracyjne do OpenMotif
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
 Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/Разработка/Библиотеки
+Group(uk):	X11/Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description demos
@@ -117,9 +135,12 @@ A BETA release of mwm. It is derived from fvwm, with a new parser that
 understands mwmrc syntax, and a general understanding of Mwm
 resources.
 
+%description mwm -l pl
+Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiej╠cy skЁadniЙ
+mwmrc oraz zasoby Mwm.
+
 %prep
-%setup -q -n motif
-%setup -q -n motif -T -D -b 1
+%setup -q -n motif -b 1
 rm -f config/cf/host.def
 %patch0 -p1
 %patch1 -p1
@@ -138,7 +159,6 @@ mv -f *.tmpl *.rules *.def OPENGROUP
 ln -sf /usr/X11R6/lib/X11/config/* .
 rm -f Motif.tmpl Motif.rules host.def
 mv -f OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
-
 
 %build
 %{__make} World \
@@ -170,7 +190,7 @@ cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif/)
 find -name \*.Z -print | xargs uncompress
 find -name \*.ps -print | xargs gzip -9nf)
 
-install %{SOURCE2} $RPM_BUILD_ROOT/etc/X11/mwm/system.mwmrc
+install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.names
@@ -275,8 +295,8 @@ rm -rf $RPM_BUILD_ROOT
 %files mwm
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/mwm
-%dir /etc/X11/mwm
-%config /etc/X11/mwm/*
+%dir %{_sysconfdir}/X11/mwm
+%config %{_sysconfdir}/X11/mwm/*
 %attr(755,root,root) /etc/sysconfig/wmstyle/*.sh
 /etc/sysconfig/wmstyle/*.names
 %{_libdir}/X11/app-defaults/Mwm
