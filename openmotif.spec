@@ -2,7 +2,7 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.1.30
-Release:	5
+Release:	6
 License:	Open Group Public License
 Group:		X11/Libraries
 Group(de):	X11/Libraries
@@ -48,7 +48,10 @@ Summary:	OpenMotif clients
 Summary(pl):	OpenMotif - programy klienckie
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 Requires:	%{name} = %{version}
 Obsoletes:	lesstif-clients
 
@@ -76,7 +79,7 @@ Obsoletes:	lesstif-devel
 %description devel
 Header files for OpenMotif.
 
-%description -l pl devel
+%description devel -l pl
 Pliki nag³ówkowe dla bibliotek OpenMotif.
 
 %package static
@@ -97,7 +100,7 @@ Obsoletes:	lesstif-static
 %description static
 OpenMotif static libraries.
 
-%description -l pl static
+%description static -l pl
 Biblioteki statyczne OpenMotif.
 
 %package demos
@@ -116,7 +119,7 @@ Requires:	%{name}-devel = %{version}
 %description demos
 OpenMotif demos.
 
-%description -l pl demos
+%description demos -l pl
 Programy demonstracyjne do OpenMotif.
 
 %package mwm
@@ -164,18 +167,21 @@ mv -f OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
 %{__make} World \
 	IMAKE_DEFINES="-DYaccCmd=yacc" \
 	BOOTSTRAPCFLAGS="%{rpmcflags}" \
-	"CDEBUGFLAGS=" CCOPTIONS="%{rpmcflags}" \
-	"CXXDEBUGFLAGS=" CXXOPTIONS="%{rpmcflags}" \
+	CDEBUGFLAGS="" CCOPTIONS="%{rpmcflags}" \
+	CXXDEBUGFLAGS="" CXXOPTIONS="%{rpmcflags}" \
 	RAWCPP="/lib/cpp"
+
+# workaround - don't let rebuild onHelp with wrong options during %install
+touch demos/lib/Xmd/onHelp.o demos/lib/Xmd/onHelp
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,/etc/{sysconfig/wmstyle,X11/mwm}}
 
-%{__make} "DESTDIR=$RPM_BUILD_ROOT" \
-	"INSTBINFLAGS=-m 755" \
-	"INSTPGMFLAGS=-m 755" \
-	"RAWCPP=/lib/cpp" \
+%{__make} DESTDIR="$RPM_BUILD_ROOT" \
+	INSTBINFLAGS="-m 755" \
+	INSTPGMFLAGS="-m 755" \
+	RAWCPP="/lib/cpp" \
 	install install.man
 
 cp -a doc/man/* $RPM_BUILD_ROOT%{_mandir}
