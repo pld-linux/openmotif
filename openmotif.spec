@@ -1,7 +1,9 @@
+#
 # WARNING: BETA versions of openmotif are using higher soname
 # than STABLE one so please don't use beta versions here because
 # when stable version somes out everything would need to be recompiled
 # using ,,stable soname''. Check out CURRENT= in configure.{in,ac}.
+#
 Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
@@ -21,12 +23,6 @@ Patch0:		%{name}-makedepend.patch
 Patch1:		%{name}-am-uil.patch
 Patch2:		%{name}-mwmrc.patch
 Patch3:		%{name}-gcc34.patch
-#Patch1:	%{name}-build.patch
-#Patch2:	%{name}-mwm.patch
-#Patch4:	%{name}-ppc_fix.patch
-#Patch5:	%{name}-ac-fixes.patch
-#Patch6:	%{name}-am-demos.patch
-#Patch8:	%{name}-am-animate.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	XFree86
 BuildRequires:	XFree86-devel
@@ -195,7 +191,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc LICENSE COPYRIGHT.MOTIF RELNOTES
-#%dir %{_libdir}/X11/uid
 %{xbitmapsdir}/*
 %{xlibdir}/bindings
 
@@ -226,57 +221,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/DNDDemo
 %attr(755,root,root) %{_bindir}/airport
 %attr(755,root,root) %{_bindir}/autopopups
-#%attr(755,root,root) %{_bindir}/dainput
-#%attr(755,root,root) %{_bindir}/dogs
 %attr(755,root,root) %{_bindir}/draw
 %attr(755,root,root) %{_bindir}/earth
-#%attr(755,root,root) %{_bindir}/exm_in_c
-#%attr(755,root,root) %{_bindir}/exm_in_uil
 %attr(755,root,root) %{_bindir}/filemanager
 %attr(755,root,root) %{_bindir}/fileview
 %attr(755,root,root) %{_bindir}/getsubres
 %attr(755,root,root) %{_bindir}/helloint
 %attr(755,root,root) %{_bindir}/hellomotif
 %attr(755,root,root) %{_bindir}/i18ninput
-#%attr(755,root,root) %{_bindir}/motifshell
-#%attr(755,root,root) %{_bindir}/onHelp
 %attr(755,root,root) %{_bindir}/panner
 %attr(755,root,root) %{_bindir}/periodic
 %attr(755,root,root) %{_bindir}/piano
 %attr(755,root,root) %{_bindir}/sampler2_0
 %attr(755,root,root) %{_bindir}/setDate
-#%attr(755,root,root) %{_bindir}/simpleDemo
 %attr(755,root,root) %{_bindir}/simpledrop
 %attr(755,root,root) %{_bindir}/todo
 %attr(755,root,root) %{_bindir}/wsm
 %attr(755,root,root) %{_bindir}/xmanimate
-#%attr(755,root,root) %{_bindir}/xmapdef
-#%attr(755,root,root) %{_bindir}/xmfonts
-#%attr(755,root,root) %{_bindir}/xmforc
-#%attr(755,root,root) %{_bindir}/xmform
-#%%{_libdir}/X11/app-defaults/Fileview
-#%%{_libdir}/X11/app-defaults/Xmd*
-#%%{_libdir}/X11/uid/*
-#%%{_mandir}/man1/DNDDemo.1*
-#%%{_mandir}/man1/autopopups.1*
-#%%{_mandir}/man1/draw.1*
-#%%{_mandir}/man1/earth.1*
-#%%{_mandir}/man1/exm_in_c.1*
-#%%{_mandir}/man1/exm_in_uil.1*
-#%%{_mandir}/man1/filemanager.1*
-#%%{_mandir}/man1/getsubres.1*
-#%%{_mandir}/man1/helloint.1*
-#%%{_mandir}/man1/i18ninput.1*
-#%%{_mandir}/man1/panner.1*
-#%%{_mandir}/man1/periodic.1*
-#%%{_mandir}/man1/piano.1*
-#%%{_mandir}/man1/sampler2_0.1*
-#%%{_mandir}/man1/setDate.1*
-#%%{_mandir}/man1/simpleDemo.1*
-#%%{_mandir}/man1/simpledrop.1*
-#%%{_mandir}/man1/todo.1*
-#%%{_mandir}/man1/wsm.1*
-#%%{_mandir}/man1/xmanimate.1*
 %{_examplesdir}/motif
 
 %files libs
