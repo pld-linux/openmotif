@@ -45,8 +45,16 @@ Group(pl):	X11/Programowanie/Biblioteki
 #%patch
 
 %build
-./configure --prefix=%{_prefix}
-make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+CXXEXTRA_DEFINES="-O2 -mpentium"
+export CXXEXTRA_DEFINES
+imake -DUseInstalled -I/usr/X11R6/lib/X11/config -Iconfig/cf
+#xmkmf
+(cd config/util;imake -DUseInstalled -I/usr/X11R6/lib/X11/config -I../cf;make)
+make Makefiles
+#make depend
+#make World
+#./configure --prefix=%{_prefix}
+#make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
