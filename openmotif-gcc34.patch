@@ -1,0 +1,198 @@
+--- openmotif-2.2.3/lib/Xm/LabelG.c.orig	2003-10-06 12:10:24.000000000 +0200
++++ openmotif-2.2.3/lib/Xm/LabelG.c	2004-04-27 13:39:00.426158808 +0200
+@@ -1320,98 +1320,6 @@
+     LabG_BackgroundGC(lw) = XtGetGC ((Widget) mw, valueMask, &values);
+ }
+ 
+-
+-/************************************************************************
+- *
+- * _XmCalcLabelGDimensions()
+- *   Calculates the dimensionsof the label text and pixmap, and updates
+- *   the TextRect fields appropriately. Called at Initialize and SetValues.
+- *   This is also called by the subclasses to recalculate label dimensions.
+- *
+- *************************************************************************/
+-
+-void
+-_XmCalcLabelGDimensions(Widget wid)
+-{
+-    XmLabelGadget newlw = (XmLabelGadget) wid;
+-    unsigned int  w = 0 , h = 0;
+-
+-    /* initialize TextRect width and height to 0, reset if needed */
+-
+-    LabG_AccTextRect(newlw).width = 0;
+-    LabG_AccTextRect(newlw).height = 0;
+-    LabG_StringRect(newlw).x = 0;
+-    LabG_StringRect(newlw).y = 0;
+-    LabG_StringRect(newlw).width = 0;
+-    LabG_StringRect(newlw).height = 0;
+-    LabG_PixmapRect(newlw).x = 0;
+-    LabG_PixmapRect(newlw).y = 0;
+-    LabG_PixmapRect(newlw).width = 0;
+-    LabG_PixmapRect(newlw).height = 0;
+-
+-    if (LabG_IsPixmap(newlw) || LabG_IsPixmapAndText(newlw))
+-    {
+-        if (XtIsSensitive(wid))
+-        {
+-            if (Pix (newlw) != XmUNSPECIFIED_PIXMAP)
+-            {
+-                XmeGetPixmapData(XtScreen(newlw), Pix(newlw),
+-                    NULL, NULL, NULL, NULL, NULL, NULL,
+-                    &w, &h);
+-
+-                LabG_PixmapRect(newlw).width = (unsigned short) w;
+-                LabG_PixmapRect(newlw).height = (unsigned short) h;
+-            }
+-        }
+-        else
+-        {
+-            Pixmap pix_use = Pix_insen (newlw) ;
+-
+-            if (pix_use == XmUNSPECIFIED_PIXMAP)
+-                pix_use = Pix(newlw);
+-
+-            if (pix_use != XmUNSPECIFIED_PIXMAP)
+-            {
+-                XmeGetPixmapData(XtScreen(newlw), pix_use,
+-                    NULL, NULL, NULL, NULL, NULL, NULL,
+-                    &w, &h);
+-
+-                LabG_PixmapRect(newlw).width = (unsigned short) w;
+-                LabG_PixmapRect(newlw).height = (unsigned short) h;
+-            }
+-        }
+-    }
+-	
+-    if (LabG_IsText (newlw) || LabG_IsPixmapAndText(newlw))
+-    {
+-        Dimension w, h;
+-
+-        /* If we have a string then size it.  */
+-        if (!XmStringEmpty (LabG__label(newlw)))
+-        {
+-            XmStringExtent (LabG_Font(newlw), LabG__label(newlw), &w, &h);
+-            LabG_StringRect(newlw).width = (unsigned short)w;
+-            LabG_StringRect(newlw).height = (unsigned short)h;
+-        }
+-    }
+-    
+-    _XmLabelGCalcTextRect(wid);
+-    
+-    if (LabG__acceleratorText(newlw) != NULL)
+-    {
+-        /* If we have a string then size it. */
+-        Dimension w,h;
+-
+-        if (!XmStringEmpty (LabG__acceleratorText(newlw)))
+-        {
+-            XmStringExtent(LabG_Font(newlw),
+-                    LabG__acceleratorText(newlw), &w, &h);
+-            LabG_AccTextRect(newlw).width = (unsigned short)w;
+-            LabG_AccTextRect(newlw).height = (unsigned short)h;
+-        }
+-    }
+-}
+-
+ void 
+ _XmLabelGCalcTextRect(Widget wid)
+ {
+@@ -1513,6 +1421,96 @@
+     }
+ }
+ 
++/************************************************************************
++ *
++ * _XmCalcLabelGDimensions()
++ *   Calculates the dimensionsof the label text and pixmap, and updates
++ *   the TextRect fields appropriately. Called at Initialize and SetValues.
++ *   This is also called by the subclasses to recalculate label dimensions.
++ *
++ *************************************************************************/
++  
++void
++_XmCalcLabelGDimensions(Widget wid)
++{
++    XmLabelGadget newlw = (XmLabelGadget) wid;
++    unsigned int  w = 0 , h = 0;
++
++    /* initialize TextRect width and height to 0, reset if needed */
++
++    LabG_AccTextRect(newlw).width = 0;
++    LabG_AccTextRect(newlw).height = 0;
++    LabG_StringRect(newlw).x = 0;
++    LabG_StringRect(newlw).y = 0;
++    LabG_StringRect(newlw).width = 0;
++    LabG_StringRect(newlw).height = 0;
++    LabG_PixmapRect(newlw).x = 0;
++    LabG_PixmapRect(newlw).y = 0;
++    LabG_PixmapRect(newlw).width = 0;
++    LabG_PixmapRect(newlw).height = 0;
++
++    if (LabG_IsPixmap(newlw) || LabG_IsPixmapAndText(newlw))
++    {
++        if (XtIsSensitive(wid))
++        {
++            if (Pix (newlw) != XmUNSPECIFIED_PIXMAP)
++            {
++                XmeGetPixmapData(XtScreen(newlw), Pix(newlw),
++                    NULL, NULL, NULL, NULL, NULL, NULL,
++                    &w, &h);
++
++                LabG_PixmapRect(newlw).width = (unsigned short) w;
++                LabG_PixmapRect(newlw).height = (unsigned short) h;
++            }
++        }
++        else
++        {
++            Pixmap pix_use = Pix_insen (newlw) ;
++
++            if (pix_use == XmUNSPECIFIED_PIXMAP)
++                pix_use = Pix(newlw);
++
++            if (pix_use != XmUNSPECIFIED_PIXMAP)
++            {
++                XmeGetPixmapData(XtScreen(newlw), pix_use,
++                    NULL, NULL, NULL, NULL, NULL, NULL,
++                    &w, &h);
++
++                LabG_PixmapRect(newlw).width = (unsigned short) w;
++                LabG_PixmapRect(newlw).height = (unsigned short) h;
++            }
++        }
++    }
++	
++    if (LabG_IsText (newlw) || LabG_IsPixmapAndText(newlw))
++    {
++        Dimension w, h;
++
++        /* If we have a string then size it.  */
++        if (!XmStringEmpty (LabG__label(newlw)))
++        {
++            XmStringExtent (LabG_Font(newlw), LabG__label(newlw), &w, &h);
++            LabG_StringRect(newlw).width = (unsigned short)w;
++            LabG_StringRect(newlw).height = (unsigned short)h;
++        }
++    }
++    
++    _XmLabelGCalcTextRect(wid);
++    
++    if (LabG__acceleratorText(newlw) != NULL)
++    {
++        /* If we have a string then size it. */
++        Dimension w,h;
++
++        if (!XmStringEmpty (LabG__acceleratorText(newlw)))
++        {
++            XmStringExtent(LabG_Font(newlw),
++                    LabG__acceleratorText(newlw), &w, &h);
++            LabG_AccTextRect(newlw).width = (unsigned short)w;
++            LabG_AccTextRect(newlw).height = (unsigned short)h;
++        }
++    }
++}
+ 
+ /************************************************************************
+  *
