@@ -35,7 +35,7 @@ Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
 
 %description clients
-Uil, getsubres and xmbind.
+Uil and xmbind.
 
 %package devel
 Summary:	OpenMotif devel
@@ -153,10 +153,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files clients
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/getsubres
 %attr(755,root,root) %{_bindir}/uil*
 %attr(755,root,root) %{_bindir}/xmbind
-%{_mandir}/man1/getsubres.1*
 %{_mandir}/man1/uil.1*
 %{_mandir}/man1/xmbind.1*
 
@@ -187,6 +185,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/exm_in_uil
 %attr(755,root,root) %{_bindir}/filemanager
 %attr(755,root,root) %{_bindir}/fileview
+%attr(755,root,root) %{_bindir}/getsubres
 %attr(755,root,root) %{_bindir}/helloint
 %attr(755,root,root) %{_bindir}/hellomotif
 %attr(755,root,root) %{_bindir}/i18ninput
@@ -222,6 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/exm_in_c.1*
 %{_mandir}/man1/exm_in_uil.1*
 %{_mandir}/man1/filemanager.1*
+%{_mandir}/man1/getsubres.1*
 %{_mandir}/man1/helloint.1*
 %{_mandir}/man1/i18ninput.1*
 %{_mandir}/man1/panner.1*
