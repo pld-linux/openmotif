@@ -1,3 +1,7 @@
+# WARNING: BETA versions of openmotif are using higher soname
+# than STABLE one so please don't use beta versions here because
+# when stable version somes out everything would need to be recompiled
+# using ,,stable soname''. Check out CURRENT= in configure.{in,ac}.
 Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
@@ -137,16 +141,16 @@ Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiej±cy sk³adniê
 mwmrc oraz zasoby Mwm.
 
 %prep
-%setup -q -c
+%setup -q -n openMotif-%{version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+#%patch3 -p1
 
 %build
 %{__libtoolize}
 %{__aclocal}
-%{__autoheader}
+#%{__autoheader}
 %{__automake}
 %{__autoconf}
 
@@ -190,7 +194,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE COPYRIGHT.MOTIF OPENBUGS RELNOTES
+%doc LICENSE COPYRIGHT.MOTIF RELNOTES
 #%dir %{_libdir}/X11/uid
 %{xbitmapsdir}/*
 %{xlibdir}/bindings
