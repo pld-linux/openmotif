@@ -20,6 +20,7 @@ Patch5:		%{name}-ac-fixes.patch
 Patch6:		%{name}-am-demos.patch
 Patch7:		%{name}-am-uil.patch
 Patch8:		%{name}-am-animate.patch
+BuildRequires:	XFree86
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
