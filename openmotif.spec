@@ -2,7 +2,7 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.2.3
-Release:	0.2
+Release:	0.3
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/pub/Products/Motif/om%{version}/%{name}%{version}.tar.gz
@@ -29,6 +29,7 @@ BuildRequires:	automake
 BuildRequires:	byacc
 BuildRequires:	flex
 BuildRequires:	libtool
+Requires:	%{name}-libs = %{version}-%{release}
 Provides:	motif = 2.2
 # Not restricted, lesstif provided library version 1.2
 # OpenMotif provide library version 2.1
@@ -67,7 +68,7 @@ uil i xmbind.
 Summary:	OpenMotif devel
 Summary(pl):	Pliki nag³ówkowe OpenMotif
 Group:		X11/Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name}-libs = %{version}-%{release}
 Requires:	XFree86-devel
 Provides:	motif-devel = 2.1
 Obsoletes:	lesstif-devel
@@ -103,6 +104,18 @@ OpenMotif demos.
 
 %description demos -l pl
 Programy demonstracyjne do OpenMotif.
+
+%package libs
+Summary:	OpenMotif shared libraries
+Summary(pl):	Biblioteki wspó³dzielone OpenMotif
+Group:		Libraries
+Conflicts:	openmotif < 2.2.3-0.3
+
+%description libs
+OpenMotif shared libraries.
+
+%description libs -l pl
+Biblioteki wspó³dzielone OpenMotif.
 
 %package mwm
 Summary:	Motif window manager
@@ -180,14 +193,13 @@ install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	libs	-p /sbin/ldconfig
+%postun	libs	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc LICENSE COPYRIGHT.MOTIF OPENBUGS RELNOTES
 #%dir %{_libdir}/X11/uid
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{xbitmapsdir}/*
 %{xlibdir}/bindings
 
@@ -270,6 +282,10 @@ rm -rf $RPM_BUILD_ROOT
 #%%{_mandir}/man1/wsm.1*
 #%%{_mandir}/man1/xmanimate.1*
 %{_examplesdir}/motif
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files mwm
 %defattr(644,root,root,755)
