@@ -100,7 +100,7 @@ rm Motif.tmpl Motif.rules host.def
 mv OPENGROUP/{Motif.tmpl,Motif.rules,host.def} .
 
 %build
-make World \
+%{__make} World \
 	IMAKE_DEFINES="-DYaccCmd=yacc" \
 	"BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
 	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
@@ -111,7 +111,7 @@ make World \
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/motif
 
-make "DESTDIR=$RPM_BUILD_ROOT" \
+%{__make} "DESTDIR=$RPM_BUILD_ROOT" \
 	"INSTBINFLAGS=-m 755" \
 	"INSTPGMFLAGS=-m 755" \
 	"RAWCPP=/lib/cpp" \
@@ -125,7 +125,7 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man1/animate.1x \
 	$RPM_BUILD_ROOT%{_mandir}/man1/xmanimate.1x
 
 (cd demos
-make clean
+%{__make} clean
 cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif/)
 
 (cd doc/ps
