@@ -152,7 +152,7 @@ rm -f missing
 %{__make} clean
 %{__make}
 
-#%{__make} World \
+#%%{__make} World \
 #	IMAKE_DEFINES="-DYaccCmd=yacc" \
 #	BOOTSTRAPCFLAGS="%{rpmcflags}" \
 #	CDEBUGFLAGS="" CCOPTIONS="%{rpmcflags}" \
@@ -258,29 +258,29 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_bindir}/xmfonts
 #%attr(755,root,root) %{_bindir}/xmforc
 #%attr(755,root,root) %{_bindir}/xmform
-#%{_libdir}/X11/app-defaults/Fileview
-#%{_libdir}/X11/app-defaults/Xmd*
-#%{_libdir}/X11/uid/*
-#%{_mandir}/man1/DNDDemo.1*
-#%{_mandir}/man1/autopopups.1*
-#%{_mandir}/man1/draw.1*
-#%{_mandir}/man1/earth.1*
-#%{_mandir}/man1/exm_in_c.1*
-#%{_mandir}/man1/exm_in_uil.1*
-#%{_mandir}/man1/filemanager.1*
-#%{_mandir}/man1/getsubres.1*
-#%{_mandir}/man1/helloint.1*
-#%{_mandir}/man1/i18ninput.1*
-#%{_mandir}/man1/panner.1*
-#%{_mandir}/man1/periodic.1*
-#%{_mandir}/man1/piano.1*
-#%{_mandir}/man1/sampler2_0.1*
-#%{_mandir}/man1/setDate.1*
-#%{_mandir}/man1/simpleDemo.1*
-#%{_mandir}/man1/simpledrop.1*
-#%{_mandir}/man1/todo.1*
-#%{_mandir}/man1/wsm.1*
-#%{_mandir}/man1/xmanimate.1*
+#%%{_libdir}/X11/app-defaults/Fileview
+#%%{_libdir}/X11/app-defaults/Xmd*
+#%%{_libdir}/X11/uid/*
+#%%{_mandir}/man1/DNDDemo.1*
+#%%{_mandir}/man1/autopopups.1*
+#%%{_mandir}/man1/draw.1*
+#%%{_mandir}/man1/earth.1*
+#%%{_mandir}/man1/exm_in_c.1*
+#%%{_mandir}/man1/exm_in_uil.1*
+#%%{_mandir}/man1/filemanager.1*
+#%%{_mandir}/man1/getsubres.1*
+#%%{_mandir}/man1/helloint.1*
+#%%{_mandir}/man1/i18ninput.1*
+#%%{_mandir}/man1/panner.1*
+#%%{_mandir}/man1/periodic.1*
+#%%{_mandir}/man1/piano.1*
+#%%{_mandir}/man1/sampler2_0.1*
+#%%{_mandir}/man1/setDate.1*
+#%%{_mandir}/man1/simpleDemo.1*
+#%%{_mandir}/man1/simpledrop.1*
+#%%{_mandir}/man1/todo.1*
+#%%{_mandir}/man1/wsm.1*
+#%%{_mandir}/man1/xmanimate.1*
 %{_examplesdir}/motif
 
 %files mwm
@@ -290,6 +290,6 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/X11/mwm/*
 %attr(755,root,root) /etc/sysconfig/wmstyle/*.sh
 /etc/sysconfig/wmstyle/*.names
-#%{_libdir}/X11/app-defaults/Mwm
+#%%{_libdir}/X11/app-defaults/Mwm
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*
