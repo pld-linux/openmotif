@@ -1,0 +1,10 @@
+--- openmotif-2.2.2/demos/programs/panner/Makefile.am.orig	Sun Feb  2 16:54:20 2003
++++ openmotif-2.2.2/demos/programs/panner/Makefile.am	Sun Feb  2 16:54:38 2003
+@@ -1,7 +1,6 @@
+ datadir = ${prefix}/share/Xm/panner
+ 
+ bin_PROGRAMS = panner
+-data_DATA = README
+ panner_SOURCES = panner.c
+ EXTRA_DIST = README panner.man Imakefile
+ data_DATA = $(EXTRA_DIST) $(panner_SOURCES)
