@@ -177,9 +177,11 @@ install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,/etc/{sysconfig/wmstyle,X11/mwm
 #$RPM_BUILD_ROOT%{_mandir}/man1/xmanimate.1x
 
 #
-(cd demos
+cd demos
 %{__make} clean
-cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif/)
+cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif
+cd ..
+
 #
 #(cd doc/ps
 #find -name \*.Z -print | xargs uncompress
@@ -198,8 +200,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE COPYRIGHT.MOTIF OPENBUGS
-%doc RELNOTES
+%doc LICENSE COPYRIGHT.MOTIF OPENBUGS RELNOTES
 #%dir %{_libdir}/X11/uid
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_includedir}/X11/bitmaps/*
