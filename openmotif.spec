@@ -2,7 +2,7 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.2.2
-Release:	0.7
+Release:	0.8
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://openmotif.opengroup.org/pub/openmotif/R2.2/tars/%{name}-%{version}.tgz
@@ -33,6 +33,11 @@ Provides:	motif = 2.2
 # OpenMotif provide library version 2.1
 #Obsoletes:	lesstif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# FHS compliance
+# (software must not be installed through /usr/{lib,include}/X11 links)
+%define		xbitmapsdir	/usr/X11R6/include/X11/bitmaps
+%define		xlibdir		/usr/X11R6/lib/X11
 
 %description
 Motif is the user interface standart in the Enterprise for
@@ -147,7 +152,6 @@ mwmrc oraz zasoby Mwm.
 #%endif
 
 %build
-rm -f missing
 %{__libtoolize}
 #%%{__gettextize}
 %{__aclocal}
@@ -169,12 +173,13 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d \
-    $RPM_BUILD_ROOT%{_examplesdir}/motif \
-    $RPM_BUILD_ROOT/etc/{sysconfig/wmstyle,X11/mwm} \
-    $RPM_BUILD_ROOT%{_datadir}/xsessions
+install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,%{_datadir}/xsessions} \
+	$RPM_BUILD_ROOT/etc/{sysconfig/wmstyle,X11/mwm}
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	bmdir=%{xbitmapsdir} \
+	binddir=%{xlibdir}/bindings
 #	INSTBINFLAGS="-m 755" \
 #	INSTPGMFLAGS="-m 755" \
 #	RAWCPP="/lib/cpp" \
@@ -212,8 +217,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE COPYRIGHT.MOTIF OPENBUGS RELNOTES
 #%dir %{_libdir}/X11/uid
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_includedir}/X11/bitmaps/*
-%{_libdir}/X11/bindings
+%{xbitmapsdir}/*
+%{xlibdir}/bindings
 
 %files clients
 %defattr(644,root,root,755)
@@ -225,6 +230,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
+%{_libdir}/lib*.la
 %{_includedir}/Mrm
 %{_includedir}/Xm
 %{_includedir}/uil
