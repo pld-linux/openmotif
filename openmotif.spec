@@ -7,12 +7,13 @@ Copyright:	Open Group Public License
 Group:		X11/Libraries
 Group(pl):	X11/Biblioteki
 Source0:	ftp://ftp.uk.linux.org/pub/linux/openmotif/source/%{name}-%{version}-src.tgz
-#Patch0:		
-#BuildRequires:	
+Patch0:		openmotif-makedepend.patch
+BuildRequires:	XFree86-devel
 #Requires:	
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define	_prefix	/usr
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 
 %description
 Motif is the user interface standart in the Enterprise for applications
@@ -41,24 +42,41 @@ Group(pl):	X11/Programowanie/Biblioteki
 
 %prep
 %setup -q -n motif
+%patch0 -p1
 
-#%patch
+mkdir -p exports/{doc,include,lib,localized}
+mkdir -p imports/x11
+cd imports/x11
+ln -s /usr/X11R6/bin bin                                   
+ln -s /usr/X11R6/include include                          
+ln -s /usr/X11R6/lib lib
+cd ../../config/cf
+ln -s /usr/X11R6/lib/X11/config/* . || :
+cd ../..
+mv Imakefile Imakefile.bak
+sed -e 's/	\$(RM) -r \$(BUILDINCDIR)//' \
+	-e 's/	\$(RM) -r \$(BUILDLIBDIR)//' \
+	-e 's/	\$(RM) -r \$(BUILDDOCDIR)//' \
+	-e 's/	\$(RM) -r \$(BUILDLOCDIR)//' \
+	-e 's/WORLDOPTS =.*/WORLDOPTS = -S/' Imakefile.bak > Imakefile
 
 %build
 CXXEXTRA_DEFINES="-O2 -mpentium"
 export CXXEXTRA_DEFINES
-imake -DUseInstalled -I/usr/X11R6/lib/X11/config -Iconfig/cf
-#xmkmf
-(cd config/util;imake -DUseInstalled -I/usr/X11R6/lib/X11/config -I../cf;make)
-make Makefiles
-#make depend
-#make World
-#./configure --prefix=%{_prefix}
-#make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+make World \
+	IMAKE_DEFINES="-I/usr/X11R6/lib/X11/config -Dlinux -Di386" \
+	"BOOTSTRAPCFLAGS=$RPM_OPT_FLAGS" \
+	"CDEBUGFLAGS=" "CCOPTIONS=$RPM_OPT_FLAGS" \
+	"CXXDEBUGFLAGS=" "CXXOPTIONS=$RPM_OPT_FLAGS" \
+	"RAWCPP=/lib/cpp"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make prefix=$RPM_BUILD_ROOT%{_prefix} install
+make "DESTDIR=$RPM_BUILD_ROOT" \
+	"INSTBINFLAGS=-m 755" \
+	"INSTPGMFLAGS=-m 755" \
+	"RAWCPP=/lib/cpp" \
+	install install.man
 
 %clean
 rm -rf $RPM_BUILD_ROOT
