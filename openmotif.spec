@@ -61,7 +61,7 @@ i inne.
 Summary:	OpenMotif clients
 Summary(pl):	OpenMotif - programy klienckie
 Group:		X11/Applications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	lesstif-clients
 
 %description clients
@@ -89,7 +89,7 @@ Pliki nag³ówkowe dla bibliotek OpenMotif.
 Summary:	OpenMotif static
 Summary(pl):	Statyczne biblioteki OpenMotif
 Group:		X11/Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 Provides:	motif-static
 Obsoletes:	lesstif-static
 
@@ -103,7 +103,7 @@ Biblioteki statyczne OpenMotif.
 Summary:	OpenMotif demos
 Summary(pl):	Programy demonstracyjne do OpenMotif
 Group:		X11/Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description demos
 OpenMotif demos.
@@ -127,7 +127,7 @@ Biblioteki wspó³dzielone OpenMotif.
 Summary:	Motif window manager
 Summary(pl):	Motifowy zarz±dca okien
 Group:		X11/Window Managers
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	xinitrc >= 3.0
 Obsoletes:	lesstif-mwm
 
