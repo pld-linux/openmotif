@@ -140,6 +140,9 @@ mwmrc oraz zasoby Mwm.
 Summary:	OpenMotif compat libraries
 Summary(pl):	Biblioteki kompatybilno¶ci dla OpenMotif
 Group:		Libraries
+Requires:	libXm.so.3.0.2
+Provides:	libXm.so.1
+Provides:	libXm.so.2
 
 %description compat
 OpenMotif compat libraries
