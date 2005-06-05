@@ -136,6 +136,17 @@ resources.
 Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiej±cy sk³adniê
 mwmrc oraz zasoby Mwm.
 
+%package compat
+Summary:	OpenMotif compat libraries
+Summary(pl):	Biblioteki kompatybilno¶ci dla OpenMotif
+Group:		Libraries
+
+%description compat
+OpenMotif compat libraries
+
+%description compat -l pl
+Biblioteki kompatybilno¶ci dla OpenMotif
+
 %prep
 %setup -q -n openMotif-%{version}
 %patch0 -p1
@@ -181,6 +192,9 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
+
+ln -sf %{_libdir}/libXm.so.3 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
+ln -sf %{_libdir}/libXm.so.3 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -253,3 +267,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xsessions/mwm.desktop
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*
+
+%files compat
+%{_libdir}/libXm.so.1
+%{_libdir}/libXm.so.2
