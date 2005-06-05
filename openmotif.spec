@@ -8,7 +8,7 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.2.3
-Release:	4
+Release:	4.1
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	http://ftp.ics.com/pub/Products/Motif/om%{version}/src/openMotif-%{version}.tar.gz
@@ -193,8 +193,8 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
 
-ln -sf %{_libdir}/libXm.so.3 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
-ln -sf %{_libdir}/libXm.so.3 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
+ln -sf libXm.so.3.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
+ln -sf libXm.so.3.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -269,5 +269,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man4/*
 
 %files compat
-%{_libdir}/libXm.so.1
-%{_libdir}/libXm.so.2
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libXm.so.1
+%attr(755,root,root) %{_libdir}/libXm.so.2
