@@ -23,6 +23,7 @@ Patch1:		%{name}-am-uil.patch
 Patch2:		%{name}-mwmrc.patch
 Patch3:		%{name}-gcc34.patch
 Patch4:		%{name}-bison.patch
+Patch5:		%{name}-CVE-2005-3964.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	XFree86
 BuildRequires:	XFree86-devel
@@ -157,6 +158,7 @@ Biblioteki kompatybilno¶ci dla OpenMotif
 %patch2 -p1
 #%patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}
