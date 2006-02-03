@@ -25,13 +25,13 @@ Patch3:		%{name}-gcc34.patch
 Patch4:		%{name}-bison.patch
 Patch5:		%{name}-CVE-2005-3964.patch
 URL:		http://www.openmotif.org/
-BuildRequires:	XFree86
-BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libtool
+BuildRequires:	xorg-lib-libXmu-devel
+BuildRequires:	xorg-lib-libXp-devel
 Requires:	%{name}-libs = %{version}-%{release}
 Provides:	motif = 2.2
 # Not restricted, lesstif provided library version 1.2
@@ -39,10 +39,10 @@ Provides:	motif = 2.2
 #Obsoletes:	lesstif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# FHS compliance
-# (software must not be installed through /usr/{lib,include}/X11 links)
-%define		xbitmapsdir	/usr/X11R6/include/X11/bitmaps
-%define		xlibdir		/usr/X11R6/lib/X11
+%define		specflags	-fno-strict-aliasing
+
+%define		xbitmapsdir	%{_includedir}/X11/bitmaps
+%define		xlibdir		%{_libdir}/X11
 
 %description
 Motif is the user interface standart in the Enterprise for
@@ -72,7 +72,8 @@ Summary:	OpenMotif devel
 Summary(pl):	Pliki nag³ówkowe OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	XFree86-devel
+Requires:	xorg-lib-libXmu-devel
+Requires:	xorg-lib-libXp-devel
 Provides:	motif-devel = 2.1
 Obsoletes:	lesstif-devel
 
