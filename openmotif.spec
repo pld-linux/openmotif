@@ -25,7 +25,7 @@ Patch3:		%{name}-bison.patch
 Patch4:		%{name}-CVE-2005-3964.patch
 Patch5:		%{name}-no-Xaw.patch
 URL:		http://www.openmotif.org/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	flex
