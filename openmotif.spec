@@ -21,15 +21,16 @@ Source6:	ac_find_motif.m4
 Patch0:		%{name}-makedepend.patch
 Patch1:		%{name}-am-uil.patch
 Patch2:		%{name}-mwmrc.patch
-Patch3:		%{name}-gcc34.patch
-Patch4:		%{name}-bison.patch
-Patch5:		%{name}-CVE-2005-3964.patch
+Patch3:		%{name}-bison.patch
+Patch4:		%{name}-CVE-2005-3964.patch
+Patch5:		%{name}-no-Xaw.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libtool
+BuildRequires:	xorg-data-xbitmaps
 BuildRequires:	xorg-lib-libXmu-devel
 BuildRequires:	xorg-lib-libXp-devel
 Requires:	%{name}-libs = %{version}-%{release}
@@ -139,32 +140,40 @@ Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiej±cy sk³adniê
 mwmrc oraz zasoby Mwm.
 
 %package compat
-Summary:	OpenMotif compat libraries
-Summary(pl):	Biblioteki kompatybilno¶ci dla OpenMotif
+Summary:	Fake OpenMotif compat libraries
+Summary(pl):	Dowi±zania udaj±ce biblioteki kompatybilno¶ci OpenMotif
 Group:		Libraries
-Requires:	libXm.so.3.0.2
+Requires:	%{_libdir}/libXm.so.3.0.2
+%ifarch %{x8664} ia64 ppc64 s390x sparc64
+Provides:	libXm.so.1()(64bit)
+Provides:	libXm.so.2()(64bit)
+%else
 Provides:	libXm.so.1
 Provides:	libXm.so.2
+%endif
 
 %description compat
-OpenMotif compat libraries
+Fake OpenMotif compat libraries (symlinks to current libXm library,
+_some_ old programs may work with them).
 
 %description compat -l pl
-Biblioteki kompatybilno¶ci dla OpenMotif
+Dowi±zania udaj±ce biblioteki kompatybilno¶ci OpenMotif (dowi±zania
+symboliczne do nowej wersji biblioteki libXm, _niektóre_ stare
+programy mog± z nimi dzia³aæ).
 
 %prep
 %setup -q -n openMotif-%{version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-#%patch3 -p1
+%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 
 %build
 %{__libtoolize}
 %{__aclocal}
-#%{__autoheader}
+#%{__autoheader} -- disabled, missing templates
 %{__automake}
 %{__autoconf}
 
@@ -174,9 +183,6 @@ Biblioteki kompatybilno¶ci dla OpenMotif
 
 %{__make} clean
 %{__make}
-
-# workaround - don't let rebuild onHelp with wrong options during %%install
-#touch demos/lib/Xmd/onHelp.o demos/lib/Xmd/onHelp
 
 %install
 rm -rf $RPM_BUILD_ROOT
