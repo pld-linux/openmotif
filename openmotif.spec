@@ -8,7 +8,7 @@ Summary:	OpenMotif
 Summary(pl):	OpenMotif
 Name:		openmotif
 Version:	2.2.3
-Release:	3
+Release:	6
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	http://ftp.ics.com/pub/Products/Motif/om%{version}/src/openMotif-%{version}.tar.gz
@@ -23,6 +23,7 @@ Patch1:		%{name}-am-uil.patch
 Patch2:		%{name}-mwmrc.patch
 Patch3:		%{name}-gcc34.patch
 Patch4:		%{name}-bison.patch
+Patch5:		%{name}-CVE-2005-3964.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	XFree86
 BuildRequires:	XFree86-devel
@@ -136,6 +137,28 @@ resources.
 Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiej±cy sk³adniê
 mwmrc oraz zasoby Mwm.
 
+%package compat
+Summary:	Fake OpenMotif compat libraries
+Summary(pl):	Dowi±zania udaj±ce biblioteki kompatybilno¶ci OpenMotif
+Group:		Libraries
+Requires:	%{_libdir}/libXm.so.3.0.2
+%ifarch %{x8664} ia64 ppc64 s390x sparc64
+Provides:	libXm.so.1()(64bit)
+Provides:	libXm.so.2()(64bit)
+%else
+Provides:	libXm.so.1
+Provides:	libXm.so.2
+%endif
+
+%description compat
+Fake OpenMotif compat libraries (symlinks to current libXm library,
+_some_ old programs may work with them).
+
+%description compat -l pl
+Dowi±zania udaj±ce biblioteki kompatybilno¶ci OpenMotif (dowi±zania
+symboliczne do nowej wersji biblioteki libXm, _niektóre_ stare
+programy mog± z nimi dzia³aæ).
+
 %prep
 %setup -q -n openMotif-%{version}
 %patch0 -p1
@@ -143,6 +166,7 @@ mwmrc oraz zasoby Mwm.
 %patch2 -p1
 #%patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}
@@ -156,7 +180,8 @@ mwmrc oraz zasoby Mwm.
 	--enable-static
 
 %{__make} clean
-%{__make}
+# workaround: fails with multiple jobservers
+%{__make} -j1
 
 # workaround - don't let rebuild onHelp with wrong options during %%install
 #touch demos/lib/Xmd/onHelp.o demos/lib/Xmd/onHelp
@@ -181,6 +206,9 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
+
+ln -sf libXm.so.3.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
+ln -sf libXm.so.3.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -253,3 +281,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xsessions/mwm.desktop
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*
+
+%files compat
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libXm.so.1
+%attr(755,root,root) %{_libdir}/libXm.so.2
