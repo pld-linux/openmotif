@@ -5,7 +5,7 @@
 # using ,,stable soname''. Check out CURRENT= in configure.{in,ac}.
 #
 Summary:	OpenMotif
-Summary(pl):	OpenMotif
+Summary(pl.UTF-8):   OpenMotif
 Name:		openmotif
 Version:	2.2.3
 Release:	6
@@ -50,14 +50,14 @@ Motif is the user interface standart in the Enterprise for
 applications that run on UNIX platforms for Sun, HP, IBM, Compaq, SGI,
 and others.
 
-%description -l pl
-Motif jest standardem wygl±du interfejsu graficznego dla aplikacji
-dzia≥aj±cych w ∂rodowiskach UNIX takich jak Sun, HP, IBM, Compaq, SGI
+%description -l pl.UTF-8
+Motif jest standardem wyglƒÖdu interfejsu graficznego dla aplikacji
+dzia≈ÇajƒÖcych w ≈õrodowiskach UNIX takich jak Sun, HP, IBM, Compaq, SGI
 i inne.
 
 %package clients
 Summary:	OpenMotif clients
-Summary(pl):	OpenMotif - programy klienckie
+Summary(pl.UTF-8):   OpenMotif - programy klienckie
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	lesstif-clients
@@ -65,12 +65,12 @@ Obsoletes:	lesstif-clients
 %description clients
 Uil and xmbind.
 
-%description clients -l pl
+%description clients -l pl.UTF-8
 uil i xmbind.
 
 %package devel
 Summary:	OpenMotif devel
-Summary(pl):	Pliki nag≥Ûwkowe OpenMotif
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	xorg-lib-libXmu-devel
@@ -81,12 +81,12 @@ Obsoletes:	lesstif-devel
 %description devel
 Header files for OpenMotif.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe dla bibliotek OpenMotif.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe dla bibliotek OpenMotif.
 
 %package static
 Summary:	OpenMotif static
-Summary(pl):	Statyczne biblioteki OpenMotif
+Summary(pl.UTF-8):   Statyczne biblioteki OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Provides:	motif-static
@@ -95,36 +95,36 @@ Obsoletes:	lesstif-static
 %description static
 OpenMotif static libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteki statyczne OpenMotif.
 
 %package demos
 Summary:	OpenMotif demos
-Summary(pl):	Programy demonstracyjne do OpenMotif
+Summary(pl.UTF-8):   Programy demonstracyjne do OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description demos
 OpenMotif demos.
 
-%description demos -l pl
+%description demos -l pl.UTF-8
 Programy demonstracyjne do OpenMotif.
 
 %package libs
 Summary:	OpenMotif shared libraries
-Summary(pl):	Biblioteki wspÛ≥dzielone OpenMotif
+Summary(pl.UTF-8):   Biblioteki wsp√≥≈Çdzielone OpenMotif
 Group:		Libraries
 Conflicts:	openmotif < 2.2.3-0.3
 
 %description libs
 OpenMotif shared libraries.
 
-%description libs -l pl
-Biblioteki wspÛ≥dzielone OpenMotif.
+%description libs -l pl.UTF-8
+Biblioteki wsp√≥≈Çdzielone OpenMotif.
 
 %package mwm
 Summary:	Motif window manager
-Summary(pl):	Motifowy zarz±dca okien
+Summary(pl.UTF-8):   Motifowy zarzƒÖdca okien
 Group:		X11/Window Managers
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	lesstif-mwm
@@ -134,13 +134,13 @@ A BETA release of mwm. It is derived from fvwm, with a new parser that
 understands mwmrc syntax, and a general understanding of Mwm
 resources.
 
-%description mwm -l pl
-Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiej±cy sk≥adniÍ
+%description mwm -l pl.UTF-8
+Wersja BETA mwm. Pochodzi z fvwm, ma nowy parser rozumiejƒÖcy sk≈Çadniƒô
 mwmrc oraz zasoby Mwm.
 
 %package compat
 Summary:	Fake OpenMotif compat libraries
-Summary(pl):	Dowi±zania udaj±ce biblioteki kompatybilno∂ci OpenMotif
+Summary(pl.UTF-8):   DowiƒÖzania udajƒÖce biblioteki kompatybilno≈õci OpenMotif
 Group:		Libraries
 Requires:	%{_libdir}/libXm.so.3.0.2
 %ifarch %{x8664} ia64 ppc64 s390x sparc64
@@ -155,10 +155,10 @@ Provides:	libXm.so.2
 Fake OpenMotif compat libraries (symlinks to current libXm library,
 _some_ old programs may work with them).
 
-%description compat -l pl
-Dowi±zania udaj±ce biblioteki kompatybilno∂ci OpenMotif (dowi±zania
-symboliczne do nowej wersji biblioteki libXm, _niektÛre_ stare
-programy mog± z nimi dzia≥aÊ).
+%description compat -l pl.UTF-8
+DowiƒÖzania udajƒÖce biblioteki kompatybilno≈õci OpenMotif (dowiƒÖzania
+symboliczne do nowej wersji biblioteki libXm, _niekt√≥re_ stare
+programy mogƒÖ z nimi dzia≈Çaƒá).
 
 %prep
 %setup -q -n openMotif-%{version}
