@@ -5,7 +5,7 @@
 # using ,,stable soname''. Check out CURRENT= in configure.{in,ac}.
 #
 Summary:	OpenMotif
-Summary(pl.UTF-8):   OpenMotif
+Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
 Version:	2.2.3
 Release:	6
@@ -57,7 +57,7 @@ i inne.
 
 %package clients
 Summary:	OpenMotif clients
-Summary(pl.UTF-8):   OpenMotif - programy klienckie
+Summary(pl.UTF-8):	OpenMotif - programy klienckie
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	lesstif-clients
@@ -70,7 +70,7 @@ uil i xmbind.
 
 %package devel
 Summary:	OpenMotif devel
-Summary(pl.UTF-8):   Pliki nagłówkowe OpenMotif
+Summary(pl.UTF-8):	Pliki nagłówkowe OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	xorg-lib-libXmu-devel
@@ -86,7 +86,7 @@ Pliki nagłówkowe dla bibliotek OpenMotif.
 
 %package static
 Summary:	OpenMotif static
-Summary(pl.UTF-8):   Statyczne biblioteki OpenMotif
+Summary(pl.UTF-8):	Statyczne biblioteki OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Provides:	motif-static
@@ -100,7 +100,7 @@ Biblioteki statyczne OpenMotif.
 
 %package demos
 Summary:	OpenMotif demos
-Summary(pl.UTF-8):   Programy demonstracyjne do OpenMotif
+Summary(pl.UTF-8):	Programy demonstracyjne do OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -112,7 +112,7 @@ Programy demonstracyjne do OpenMotif.
 
 %package libs
 Summary:	OpenMotif shared libraries
-Summary(pl.UTF-8):   Biblioteki współdzielone OpenMotif
+Summary(pl.UTF-8):	Biblioteki współdzielone OpenMotif
 Group:		Libraries
 Conflicts:	openmotif < 2.2.3-0.3
 
@@ -124,7 +124,7 @@ Biblioteki współdzielone OpenMotif.
 
 %package mwm
 Summary:	Motif window manager
-Summary(pl.UTF-8):   Motifowy zarządca okien
+Summary(pl.UTF-8):	Motifowy zarządca okien
 Group:		X11/Window Managers
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	lesstif-mwm
@@ -140,7 +140,7 @@ mwmrc oraz zasoby Mwm.
 
 %package compat
 Summary:	Fake OpenMotif compat libraries
-Summary(pl.UTF-8):   Dowiązania udające biblioteki kompatybilności OpenMotif
+Summary(pl.UTF-8):	Dowiązania udające biblioteki kompatybilności OpenMotif
 Group:		Libraries
 Requires:	%{_libdir}/libXm.so.3.0.2
 %ifarch %{x8664} ia64 ppc64 s390x sparc64
