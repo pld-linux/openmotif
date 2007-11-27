@@ -1,0 +1,16 @@
+--- openmotif-2.3.0/ac_find_xft.m4.orig	2007-11-27 15:01:28.000000000 +0100
++++ openmotif-2.3.0/ac_find_xft.m4	2007-11-27 15:03:36.000000000 +0100
+@@ -75,7 +75,12 @@
+ LIBS="$LIBS $freetype_lib"
+ saved_CPPFLAGS="$CPPFLAGS"
+ CPPFLAGS="$CPPFLAGS $FREETYPE_CFLAGS"
+-AC_CHECK_HEADERS(freetype/freetype.h)
++AC_CHECK_HEADERS(ft2build.h \
++		    freetype/freetype.h \
++		    freetype/ftglyph.h \
++		    freetype/tttables.h \
++		    freetype/ftnames.h \
++		    )
+ 
+ LT_HAVE_FREETYPE="no"
+ case "$ac_cv_header_freetype_freetype_h" in
