@@ -22,11 +22,11 @@ Patch0:		%{name}-makedepend.patch
 Patch1:		%{name}-mwmrc.patch
 Patch2:		%{name}-bison.patch
 Patch3:		%{name}-freetype.patch
+Patch4:		%{name}-parbuild.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	bison
-BuildRequires:	byacc
 BuildRequires:	flex
 BuildRequires:	freetype-devel
 BuildRequires:	libtool
@@ -38,7 +38,7 @@ BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXmu-devel
 BuildRequires:	xorg-lib-libXp-devel
 Requires:	%{name}-libs = %{version}-%{release}
-Provides:	motif = 2.2
+Provides:	motif = 2.3
 # Not restricted, lesstif provided library version 1.2
 # OpenMotif provide library version 2.1
 #Obsoletes:	lesstif
@@ -72,6 +72,18 @@ Uil and xmbind.
 %description clients -l pl.UTF-8
 uil i xmbind.
 
+%package libs
+Summary:	OpenMotif shared libraries
+Summary(pl.UTF-8):	Biblioteki współdzielone OpenMotif
+Group:		Libraries
+Conflicts:	openmotif < 2.2.3-0.3
+
+%description libs
+OpenMotif shared libraries.
+
+%description libs -l pl.UTF-8
+Biblioteki współdzielone OpenMotif.
+
 %package devel
 Summary:	OpenMotif devel
 Summary(pl.UTF-8):	Pliki nagłówkowe OpenMotif
@@ -79,7 +91,7 @@ Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	xorg-lib-libXmu-devel
 Requires:	xorg-lib-libXp-devel
-Provides:	motif-devel = 2.1
+Provides:	motif-devel = 2.3
 Obsoletes:	lesstif-devel
 
 %description devel
@@ -93,7 +105,7 @@ Summary:	OpenMotif static
 Summary(pl.UTF-8):	Statyczne biblioteki OpenMotif
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Provides:	motif-static
+Provides:	motif-static = 2.3
 Obsoletes:	lesstif-static
 
 %description static
@@ -113,18 +125,6 @@ OpenMotif demos.
 
 %description demos -l pl.UTF-8
 Programy demonstracyjne do OpenMotif.
-
-%package libs
-Summary:	OpenMotif shared libraries
-Summary(pl.UTF-8):	Biblioteki współdzielone OpenMotif
-Group:		Libraries
-Conflicts:	openmotif < 2.2.3-0.3
-
-%description libs
-OpenMotif shared libraries.
-
-%description libs -l pl.UTF-8
-Biblioteki współdzielone OpenMotif.
 
 %package mwm
 Summary:	Motif window manager
@@ -146,13 +146,15 @@ mwmrc oraz zasoby Mwm.
 Summary:	Fake OpenMotif compat libraries
 Summary(pl.UTF-8):	Dowiązania udające biblioteki kompatybilności OpenMotif
 Group:		Libraries
-Requires:	%{_libdir}/libXm.so.3.0.2
+Requires:	%{_libdir}/libXm.so.4.0.0
 %ifarch %{x8664} ia64 ppc64 s390x sparc64
 Provides:	libXm.so.1()(64bit)
 Provides:	libXm.so.2()(64bit)
+Provides:	libXm.so.3()(64bit)
 %else
 Provides:	libXm.so.1
 Provides:	libXm.so.2
+Provides:	libXm.so.3
 %endif
 
 %description compat
@@ -170,10 +172,11 @@ programy mogą z nimi działać).
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
-%{__aclocal} -I ./
+%{__aclocal} -I .
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -185,7 +188,7 @@ programy mogą z nimi działać).
 	--enable-xft \
 	--enable-jpeg \
 	--enable-png \
-	--with-fontconfig-config=freetype-config
+	--with-fontconfig-config="pkg-config fontconfig"
 
 %{__make} clean
 %{__make}
@@ -211,8 +214,9 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
 
-ln -sf libXm.so.3.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
-ln -sf libXm.so.3.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
+ln -sf libXm.so.4.0.0 $RPM_BUILD_ROOT%{_libdir}/libXm.so.3
+ln -sf libXm.so.4.0.0 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
+ln -sf libXm.so.4.0.0 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -233,20 +237,35 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/uil.1*
 %{_mandir}/man1/xmbind.1*
 
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libMrm.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libMrm.so.4
+%attr(755,root,root) %{_libdir}/libUil.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libUil.so.4
+%attr(755,root,root) %{_libdir}/libXm.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libXm.so.4
+
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%attr(755,root,root) %{_libdir}/libMrm.so
+%attr(755,root,root) %{_libdir}/libUil.so
+%attr(755,root,root) %{_libdir}/libXm.so
+%{_libdir}/libMrm.la
+%{_libdir}/libUil.la
+%{_libdir}/libXm.la
 %{_includedir}/Mrm
 %{_includedir}/Xm
 %{_includedir}/uil
 %{_mandir}/man3/*
 %{_mandir}/man5/*
-%{_aclocaldir}/*.m4
+%{_aclocaldir}/ac_find_motif.m4
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libMrm.a
+%{_libdir}/libUil.a
+%{_libdir}/libXm.a
 
 %files demos
 %defattr(644,root,root,755)
@@ -272,10 +291,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xmanimate
 %{_examplesdir}/motif
 
-%files libs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
-
 %files mwm
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/mwm
@@ -290,3 +305,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libXm.so.1
 %attr(755,root,root) %{_libdir}/libXm.so.2
+%attr(755,root,root) %{_libdir}/libXm.so.3
