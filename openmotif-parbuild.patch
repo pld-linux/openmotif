@@ -1,0 +1,60 @@
+--- openmotif-2.3.0/tools/wml/Makefile.am.orig	2002-10-06 15:08:48.000000000 +0200
++++ openmotif-2.3.0/tools/wml/Makefile.am	2007-11-27 18:36:24.867755647 +0100
+@@ -27,7 +27,7 @@
+ wmluiltok_LDADD = @LEXLIB@
+ 
+ wml_SOURCES = wml.c
+-wml_LDADD = -L. -lwml
++wml_LDADD = libwml.a
+ 
+ wmldbcreate_LDADD = ../../lib/Xm/libXm.la
+ 
+@@ -36,6 +36,8 @@
+ noinst_LIBRARIES = libwml.a
+ libwml_a_SOURCES = wmlparse.y wml.c wmloutkey.c wmlouth.c wmloutmm.c wmloutp1.c wmlresolve.c wmlsynbld.c wmlutils.c
+ 
++wmlsynbld.c: wmlparse.h
++
+ wmlparse.c: wmllex.c
+ 
+ wmllex.c: wmllex.l
+@@ -50,12 +50,15 @@
+ 	$(LN_S) Uil.h UilLexPars.h
+ 	$(LN_S) Uil.c UilLexPars.c
+ 
+-$(WMLTARGETS): wmluiltok wml UilLexPars.c $(TABLE)
++$(WMLTARGETS): wmltargets-stamp
++
++wmltargets-stamp: wmluiltok wml UilLexPars.c $(TABLE)
+ 	$(RM) $(WMLTARGETS) wml.report wml-uil.mm
+ 	./wmluiltok <$(srcdir)/Uil.y >tokens.dat
+ 	$(RM) wml-uil.mm
+ 	./wml $(srcdir)/$(TABLE)
+ 	$(RM) tokens.dat
++	touch wmltargets-stamp
+ 
+ all: motif.wmd
+ 
+--- openmotif-2.3.0/demos/lib/Exm/wml/Makefile.am.orig	2002-10-06 15:08:47.000000000 +0200
++++ openmotif-2.3.0/demos/lib/Exm/wml/Makefile.am	2007-11-27 19:18:05.605165122 +0100
+@@ -60,7 +60,9 @@
+ #  
+ UilLexPars.c UilLexPars.h: $(UILY)
+ 
+-$(TARGETS):	$(TABLE) $(WMLDIR)/motif.wml
++$(TARGETS): targets-stamp
++
++targets-stamp: $(TABLE) $(WMLDIR)/motif.wml
+ 	$(RM) $(TARGETS) $(REPORT) wml-uil.mm
+ # 	$(YACC) -d $(YACCFLAGS) $(UILY)
+ # 	$(MV) y.tab.c UilLexPars.c
+@@ -72,7 +74,8 @@
+ 	$(CPP) -I$(WMLDIR) Exm.h | $(top_builddir)/tools/wml/wml
+ 	$(RM) Exm.h
+ # 	$(RM) tokens.dat
+-# 
++	touch targets-stamp
++
+ # $(WMDTABLE):	wmldbcreate
+ # 	$(CLIENTENVSETUP) ./wmldbcreate -o $@
+ # 
