@@ -7,30 +7,34 @@
 Summary:	OpenMotif
 Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
-Version:	2.2.3
-Release:	7
+Version:	2.3.0
+Release:	0.1
 License:	Open Group Public License
 Group:		X11/Libraries
-Source0:	http://ftp.ics.com/pub/Products/Motif/om%{version}/src/openMotif-%{version}.tar.gz
-# Source0-md5:	94c96a0f94ee0d5e41d3dba2188b263d
+Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	99d0ecb84d3504da421021a19ff70500
 #Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
 Source5:	mwm-xsession.desktop
 Source6:	ac_find_motif.m4
 Patch0:		%{name}-makedepend.patch
-Patch1:		%{name}-am-uil.patch
-Patch2:		%{name}-mwmrc.patch
-Patch3:		%{name}-bison.patch
-Patch4:		%{name}-CVE-2005-3964.patch
-Patch5:		%{name}-no-Xaw.patch
+Patch1:		%{name}-mwmrc.patch
+Patch2:		%{name}-bison.patch
+Patch3:		%{name}-freetype.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	bison
+BuildRequires:	byacc
 BuildRequires:	flex
+BuildRequires:	freetype-devel
 BuildRequires:	libtool
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
+BuildRequires:	pkgconfig
 BuildRequires:	xorg-data-xbitmaps
+BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXmu-devel
 BuildRequires:	xorg-lib-libXp-devel
 Requires:	%{name}-libs = %{version}-%{release}
@@ -161,24 +165,27 @@ symboliczne do nowej wersji biblioteki libXm, _niektóre_ stare
 programy mogą z nimi działać).
 
 %prep
-%setup -q -n openMotif-%{version}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
 %{__libtoolize}
-%{__aclocal}
-#%{__autoheader} -- disabled, missing templates
+%{__aclocal} -I ./
+%{__autoconf}
+%{__autoheader}
 %{__automake}
 %{__autoconf}
 
 %configure \
 	--enable-shared \
-	--enable-static
+	--enable-static \
+	--enable-xft \
+	--enable-jpeg \
+	--enable-png \
+	--with-fontconfig-config=freetype-config
 
 %{__make} clean
 %{__make}
