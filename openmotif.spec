@@ -206,6 +206,7 @@ install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,%{_datadir}/xsessions} \
 cd demos
 %{__make} clean
 cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif
+rm -rf $RPM_BUILD_ROOT%{_datadir}/Xm
 cd ..
 
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
@@ -272,21 +273,33 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/DNDDemo
 %attr(755,root,root) %{_bindir}/airport
 %attr(755,root,root) %{_bindir}/autopopups
+%attr(755,root,root) %{_bindir}/bboxdemo
+%attr(755,root,root) %{_bindir}/colordemo
+%attr(755,root,root) %{_bindir}/column
+%attr(755,root,root) %{_bindir}/combo
 %attr(755,root,root) %{_bindir}/draw
 %attr(755,root,root) %{_bindir}/earth
+%attr(755,root,root) %{_bindir}/ext18list
 %attr(755,root,root) %{_bindir}/filemanager
 %attr(755,root,root) %{_bindir}/fileview
+%attr(755,root,root) %{_bindir}/fontsel
 %attr(755,root,root) %{_bindir}/getsubres
 %attr(755,root,root) %{_bindir}/helloint
 %attr(755,root,root) %{_bindir}/hellomotif
 %attr(755,root,root) %{_bindir}/i18ninput
+%attr(755,root,root) %{_bindir}/iconbuttondemo
+%attr(755,root,root) %{_bindir}/outline
+%attr(755,root,root) %{_bindir}/paned
 %attr(755,root,root) %{_bindir}/panner
 %attr(755,root,root) %{_bindir}/periodic
 %attr(755,root,root) %{_bindir}/piano
 %attr(755,root,root) %{_bindir}/sampler2_0
 %attr(755,root,root) %{_bindir}/setDate
 %attr(755,root,root) %{_bindir}/simpledrop
+%attr(755,root,root) %{_bindir}/tabstack
 %attr(755,root,root) %{_bindir}/todo
+%attr(755,root,root) %{_bindir}/tooltips
+%attr(755,root,root) %{_bindir}/tree
 %attr(755,root,root) %{_bindir}/wsm
 %attr(755,root,root) %{_bindir}/xmanimate
 %{_examplesdir}/motif
