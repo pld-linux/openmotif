@@ -7,12 +7,12 @@
 Summary:	OpenMotif
 Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
-Version:	2.3.0
+Version:	2.3.1
 Release:	1
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	99d0ecb84d3504da421021a19ff70500
+# Source0-md5:	b6acc7fecec611bc39b1b3f4b2a0e452
 #Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
@@ -23,6 +23,7 @@ Patch1:		%{name}-mwmrc.patch
 Patch2:		%{name}-bison.patch
 Patch3:		%{name}-freetype.patch
 Patch4:		%{name}-parbuild.patch
+Patch5:		%{name}-libtool.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
@@ -173,6 +174,7 @@ programy mogą z nimi działać).
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}
