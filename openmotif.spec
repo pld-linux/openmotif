@@ -8,7 +8,7 @@ Summary:	OpenMotif
 Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
 Version:	2.3.1
-Release:	1
+Release:	2
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
@@ -147,7 +147,7 @@ mwmrc oraz zasoby Mwm.
 Summary:	Fake OpenMotif compat libraries
 Summary(pl.UTF-8):	Dowiązania udające biblioteki kompatybilności OpenMotif
 Group:		Libraries
-Requires:	%{_libdir}/libXm.so.4.0.0
+Requires:	%{_libdir}/libXm.so.4.0.1
 %ifarch %{x8664} ia64 ppc64 s390x sparc64
 Provides:	libXm.so.1()(64bit)
 Provides:	libXm.so.2()(64bit)
@@ -219,9 +219,9 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
 
-ln -sf libXm.so.4.0.0 $RPM_BUILD_ROOT%{_libdir}/libXm.so.3
-ln -sf libXm.so.4.0.0 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
-ln -sf libXm.so.4.0.0 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
+ln -sf libXm.so.4.0.1 $RPM_BUILD_ROOT%{_libdir}/libXm.so.3
+ln -sf libXm.so.4.0.1 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
+ln -sf libXm.so.4.0.1 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
