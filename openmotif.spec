@@ -221,9 +221,9 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
 
-ln -sf libXm.so.4.0.1 $RPM_BUILD_ROOT%{_libdir}/libXm.so.3
-ln -sf libXm.so.4.0.1 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
-ln -sf libXm.so.4.0.1 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
+ln -sf libXm.so.4.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.3
+ln -sf libXm.so.4.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
+ln -sf libXm.so.4.0.2 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
