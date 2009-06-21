@@ -1,14 +1,5 @@
 --- openmotif-2.3.0/tools/wml/Makefile.am.orig	2002-10-06 15:08:48.000000000 +0200
 +++ openmotif-2.3.0/tools/wml/Makefile.am	2007-11-27 18:36:24.867755647 +0100
-@@ -27,7 +27,7 @@
- wmluiltok_LDADD = @LEXLIB@
- 
- wml_SOURCES = wml.c
--wml_LDADD = -L. -lwml
-+wml_LDADD = libwml.a
- 
- wmldbcreate_LDADD = ../../lib/Xm/libXm.la
- 
 @@ -36,6 +36,8 @@
  noinst_LIBRARIES = libwml.a
  libwml_a_SOURCES = wmlparse.y wml.c wmloutkey.c wmlouth.c wmloutmm.c wmloutp1.c wmlresolve.c wmlsynbld.c wmlutils.c

@@ -7,12 +7,12 @@
 Summary:	OpenMotif
 Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
-Version:	2.3.1
-Release:	3
+Version:	2.3.2
+Release:	1
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	b6acc7fecec611bc39b1b3f4b2a0e452
+# Source0-md5:	bf5479d52bc114d299200ec20e463e96
 #Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
 Source3:	mwm.RunWM
@@ -23,16 +23,16 @@ Patch1:		%{name}-mwmrc.patch
 Patch2:		%{name}-bison.patch
 Patch3:		%{name}-freetype.patch
 Patch4:		%{name}-parbuild.patch
-Patch5:		%{name}-libtool.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	freetype-devel
-BuildRequires:	libtool
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
+BuildRequires:	libtool
+BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
 BuildRequires:	xorg-data-xbitmaps
 BuildRequires:	xorg-lib-libXft-devel
@@ -83,7 +83,7 @@ Conflicts:	openmotif < 2.2.3-0.3
 OpenMotif shared libraries.
 
 %description libs -l pl.UTF-8
-Biblioteki współdzielone OpenMotif.
+Biblioteki współdzielone OpenMotifa.
 
 %package devel
 Summary:	OpenMotif devel
@@ -113,7 +113,7 @@ Obsoletes:	lesstif-static
 OpenMotif static libraries.
 
 %description static -l pl.UTF-8
-Biblioteki statyczne OpenMotif.
+Biblioteki statyczne OpenMotifa.
 
 %package demos
 Summary:	OpenMotif demos
@@ -125,7 +125,7 @@ Requires:	%{name}-devel = %{version}-%{release}
 OpenMotif demos.
 
 %description demos -l pl.UTF-8
-Programy demonstracyjne do OpenMotif.
+Programy demonstracyjne OpenMotifa.
 
 %package mwm
 Summary:	Motif window manager
@@ -174,7 +174,6 @@ programy mogą z nimi działać).
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 %{__libtoolize}
@@ -187,6 +186,7 @@ programy mogą z nimi działać).
 %configure \
 	--enable-shared \
 	--enable-static \
+	--enable-themes \
 	--enable-xft \
 	--enable-jpeg \
 	--enable-png \
@@ -203,9 +203,11 @@ install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,%{_datadir}/xsessions} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	bmdir=%{xbitmapsdir} \
+	bindir=%{_bindir} \
 	binddir=%{xlibdir}/bindings
 
 cd demos
+# breaks -bi --short-circuit !
 %{__make} clean
 cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif
 rm -rf $RPM_BUILD_ROOT%{_datadir}/Xm
@@ -299,6 +301,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/piano
 %attr(755,root,root) %{_bindir}/sampler2_0
 %attr(755,root,root) %{_bindir}/setDate
+%attr(755,root,root) %{_bindir}/simpleDemo
 %attr(755,root,root) %{_bindir}/simpledrop
 %attr(755,root,root) %{_bindir}/tabstack
 %attr(755,root,root) %{_bindir}/todo
