@@ -8,7 +8,7 @@ Summary:	OpenMotif
 Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
 Version:	2.3.2
-Release:	1
+Release:	2
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
@@ -147,7 +147,7 @@ mwmrc oraz zasoby Mwm.
 Summary:	Fake OpenMotif compat libraries
 Summary(pl.UTF-8):	Dowiązania udające biblioteki kompatybilności OpenMotif
 Group:		Libraries
-Requires:	%{_libdir}/libXm.so.4.0.1
+Requires:	%{_libdir}/libXm.so.4.0.2
 %ifarch %{x8664} ia64 ppc64 s390x sparc64
 Provides:	libXm.so.1()(64bit)
 Provides:	libXm.so.2()(64bit)
