@@ -8,7 +8,7 @@ Summary:	OpenMotif
 Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
 Version:	2.3.2
-Release:	4
+Release:	5
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
@@ -30,7 +30,7 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	freetype-devel
 BuildRequires:	libjpeg-devel
-BuildRequires:	libpng-devel
+BuildRequires:	libpng-devel >= 2:1.4.0
 BuildRequires:	libtool
 BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
@@ -174,6 +174,9 @@ programy mogą z nimi działać).
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+
+# png_check_sig was replaced by png_sig_cmp in libpng
+%{__sed} -i -e 's/if (!png_check_sig(sig, 8))/if (png_sig_cmp(sig, 0, 8))/g' lib/Xm/Png.c
 
 %build
 %{__libtoolize}
