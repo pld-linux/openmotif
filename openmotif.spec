@@ -8,14 +8,13 @@ Summary:	OpenMotif
 Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
 Version:	2.3.3
-Release:	4
+Release:	5
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	fd27cd3369d6c7d5ef79eccba524f7be
 #Source1:	%{name}-%{version}-icsextra.tgz
 Source2:	mwmrc
-Source3:	mwm.RunWM
 Source5:	mwm-xsession.desktop
 Source6:	ac_find_motif.m4
 Patch0:		%{name}-makedepend.patch
@@ -201,7 +200,7 @@ programy mogą z nimi działać).
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_examplesdir}/motif,%{_datadir}/xsessions} \
-	$RPM_BUILD_ROOT{/etc/{sysconfig/wmstyle,X11/mwm},%{_aclocaldir}}
+	$RPM_BUILD_ROOT{/etc/X11/mwm,%{_aclocaldir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -220,7 +219,6 @@ mv -f $RPM_BUILD_ROOT%{_bindir}/{,openmotif-}tree || :
 
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/wmstyle/mwm.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/xsessions/mwm.desktop
 install %{SOURCE6} $RPM_BUILD_ROOT%{_aclocaldir}
 
@@ -319,7 +317,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/mwm
 %dir %{_sysconfdir}/X11/mwm
 %config %{_sysconfdir}/X11/mwm/*
-%attr(755,root,root) /etc/sysconfig/wmstyle/*.sh
 %{_datadir}/xsessions/mwm.desktop
 %{_mandir}/man1/mwm.1*
 %{_mandir}/man4/*
