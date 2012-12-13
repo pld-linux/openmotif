@@ -8,7 +8,7 @@ Summary:	OpenMotif
 Summary(pl.UTF-8):	OpenMotif
 Name:		openmotif
 Version:	2.3.3
-Release:	6
+Release:	7
 License:	Open Group Public License
 Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
@@ -22,6 +22,7 @@ Patch1:		%{name}-mwmrc.patch
 Patch2:		%{name}-bison.patch
 Patch3:		%{name}-freetype.patch
 Patch4:		%{name}-parbuild.patch
+Patch5:		format-security.patch
 URL:		http://www.openmotif.org/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
@@ -173,6 +174,7 @@ programy mogą z nimi działać).
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 # png_check_sig was replaced by png_sig_cmp in libpng
 %{__sed} -i -e 's/if (!png_check_sig(sig, 8))/if (png_sig_cmp(sig, 0, 8))/g' lib/Xm/Png.c
