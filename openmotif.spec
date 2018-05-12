@@ -14,6 +14,7 @@ Group:		X11/Libraries
 Source0:	ftp://ftp.ics.com/openmotif/2.3/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	fd27cd3369d6c7d5ef79eccba524f7be
 #Source1:	%{name}-%{version}-icsextra.tgz
+# FIXME: use upstream system.mwmrc + patch, adjust install path (see motif.spec)
 Source2:	mwmrc
 Source5:	mwm-xsession.desktop
 Source6:	ac_find_motif.m4
@@ -216,8 +217,8 @@ cd demos
 cp -a * $RPM_BUILD_ROOT%{_examplesdir}/motif
 rm -rf $RPM_BUILD_ROOT%{_datadir}/Xm
 cd ..
-mv -f $RPM_BUILD_ROOT%{_bindir}/{,openmotif-}column || :
-mv -f $RPM_BUILD_ROOT%{_bindir}/{,openmotif-}tree || :
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/{,openmotif-}column
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/{,openmotif-}tree
 
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/X11/mwm/system.mwmrc
 
@@ -228,21 +229,24 @@ ln -sf libXm.so.4.0.3 $RPM_BUILD_ROOT%{_libdir}/libXm.so.3
 ln -sf libXm.so.4.0.3 $RPM_BUILD_ROOT%{_libdir}/libXm.so.2
 ln -sf libXm.so.4.0.3 $RPM_BUILD_ROOT%{_libdir}/libXm.so.1
 
+# man pages installed incorrectly
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/manm/{exm_in_c,simpleDemo}.man
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	libs	-p /sbin/ldconfig
-%postun	libs	-p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc LICENSE COPYRIGHT.MOTIF RELNOTES
-%{xbitmapsdir}/*
+%{xbitmapsdir}/xm_*
 %{xlibdir}/bindings
 
 %files clients
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/uil*
+%attr(755,root,root) %{_bindir}/uil
 %attr(755,root,root) %{_bindir}/xmbind
 %{_mandir}/man1/uil.1*
 %{_mandir}/man1/xmbind.1*
@@ -267,8 +271,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/Mrm
 %{_includedir}/Xm
 %{_includedir}/uil
-%{_mandir}/man3/*
-%{_mandir}/man5/*
+%{_mandir}/man3/ApplicationShell.3*
+%{_mandir}/man3/Composite.3*
+%{_mandir}/man3/Constraint.3*
+%{_mandir}/man3/Core.3*
+%{_mandir}/man3/Mrm*.3*
+%{_mandir}/man3/Object.3*
+%{_mandir}/man3/OverrideShell.3*
+%{_mandir}/man3/RectObj.3*
+%{_mandir}/man3/Shell.3*
+%{_mandir}/man3/TopLevelShell.3*
+%{_mandir}/man3/TransientShell.3*
+%{_mandir}/man3/Uil*.3*
+%{_mandir}/man3/VendorShell.3*
+%{_mandir}/man3/VirtualBindings.3*
+%{_mandir}/man3/WMShell.3*
+%{_mandir}/man3/Xm*.3*
+%{_mandir}/man5/Traits.5*
+%{_mandir}/man5/UIL.5*
+%{_mandir}/man5/WML.5*
 %{_aclocaldir}/ac_find_motif.m4
 
 %files static
@@ -288,6 +309,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/combo
 %attr(755,root,root) %{_bindir}/draw
 %attr(755,root,root) %{_bindir}/earth
+%attr(755,root,root) %{_bindir}/exm_in_c
 %attr(755,root,root) %{_bindir}/ext18list
 %attr(755,root,root) %{_bindir}/filemanager
 %attr(755,root,root) %{_bindir}/fileview
@@ -318,10 +340,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/mwm
 %dir %{_sysconfdir}/X11/mwm
-%config %{_sysconfdir}/X11/mwm/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/X11/mwm/system.mwmrc*
 %{_datadir}/xsessions/mwm.desktop
 %{_mandir}/man1/mwm.1*
-%{_mandir}/man4/*
+# FIXME: should be man5
+%{_mandir}/man4/mwmrc.4*
 
 %files compat
 %defattr(644,root,root,755)
