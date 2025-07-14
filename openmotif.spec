@@ -170,12 +170,12 @@ programy mogą z nimi działać).
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
 
 # png_check_sig was replaced by png_sig_cmp in libpng
 %{__sed} -i -e 's/if (!png_check_sig(sig, 8))/if (png_sig_cmp(sig, 0, 8))/g' lib/Xm/Png.c
